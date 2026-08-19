@@ -6,6 +6,8 @@ namespace CorsoGestioneDB.Application.Pipeline;
 
 public class ConvertStage : StageBase
 {
+    private const string CONVERT_LOG_MESSAGE = "OrderID: {0} Campo: {1} {2}";
+
     public ConvertStage(ILogger<ConvertStage> logger) : base(logger)
     {
     }
@@ -36,7 +38,7 @@ public class ConvertStage : StageBase
         else
         {
             context.Messages.Add(dtOrderDate.ErrorMessage);
-            logger.LogInformation(dtOrderDate.ErrorMessage);
+            logger.LogInformation(CONVERT_LOG_MESSAGE, context.RawOrder.OrderID, nameof(context.RawOrder.OrderDate), dtOrderDate.ErrorMessage);
         }
         
         // PaymentMethod
@@ -60,7 +62,7 @@ public class ConvertStage : StageBase
             else
             {
                 context.Messages.Add(dtDeliveryDate.ErrorMessage);
-                logger.LogInformation(dtDeliveryDate.ErrorMessage);
+                logger.LogInformation(CONVERT_LOG_MESSAGE, context.RawOrder.OrderID, nameof(context.RawOrder.DeliveryDate), dtDeliveryDate.ErrorMessage);
             }
         }
     }
@@ -77,7 +79,7 @@ public class ConvertStage : StageBase
         else
         {
             context.Messages.Add(qty.ErrorMessage);
-            logger.LogInformation(qty.ErrorMessage);
+            logger.LogInformation(CONVERT_LOG_MESSAGE, context.RawOrder.OrderID, nameof(context.RawOrder.Quantity), qty.ErrorMessage);
         }
 
         // UnitPrice
@@ -90,7 +92,7 @@ public class ConvertStage : StageBase
         else
         {
             context.Messages.Add(unitPrice.ErrorMessage);
-            logger.LogInformation(unitPrice.ErrorMessage);
+            logger.LogInformation(CONVERT_LOG_MESSAGE, context.RawOrder.OrderID, nameof(context.RawOrder.UnitPrice), unitPrice.ErrorMessage);
         }
 
         // DiscountPct
@@ -103,7 +105,7 @@ public class ConvertStage : StageBase
         else
         {
             context.Messages.Add(discountPct.ErrorMessage);
-            logger.LogInformation(discountPct.ErrorMessage);
+            logger.LogInformation(CONVERT_LOG_MESSAGE, context.RawOrder.OrderID, nameof(context.RawOrder.DiscountPct), discountPct.ErrorMessage);
         }
 
         // ShippingCost
@@ -116,7 +118,7 @@ public class ConvertStage : StageBase
         else
         {
             context.Messages.Add(shippingCost.ErrorMessage);
-            logger.LogInformation(shippingCost.ErrorMessage);
+            logger.LogInformation(CONVERT_LOG_MESSAGE, context.RawOrder.OrderID, nameof(context.RawOrder.ShippingCost), shippingCost.ErrorMessage);
         }
 
         // Revenue
@@ -129,7 +131,7 @@ public class ConvertStage : StageBase
         else
         {
             context.Messages.Add(revenue.ErrorMessage);
-            logger.LogInformation(revenue.ErrorMessage);
+            logger.LogInformation(CONVERT_LOG_MESSAGE, context.RawOrder.OrderID, nameof(context.RawOrder.Revenue), revenue.ErrorMessage);
         }
     }
 
@@ -145,7 +147,7 @@ public class ConvertStage : StageBase
         else
         {
             context.Messages.Add(customerId.ErrorMessage);
-            logger.LogInformation(customerId.ErrorMessage);
+            logger.LogInformation(CONVERT_LOG_MESSAGE, context.RawOrder.OrderID, nameof(context.RawOrder.CustomerID), customerId.ErrorMessage);
         }
 
         // FirstName
@@ -176,7 +178,7 @@ public class ConvertStage : StageBase
         else
         {
             context.Messages.Add(signupDate.ErrorMessage);
-            logger.LogInformation(signupDate.ErrorMessage);
+            logger.LogInformation(CONVERT_LOG_MESSAGE, context.RawOrder.OrderID, nameof(context.RawOrder.SignupDate), signupDate.ErrorMessage);
         }
     }
 
