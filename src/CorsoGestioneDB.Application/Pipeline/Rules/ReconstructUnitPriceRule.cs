@@ -3,6 +3,9 @@ using Microsoft.Extensions.Logging;
 
 namespace CorsoGestioneDB.Application.Pipeline.Rules;
 
+/// <summary>
+/// Regola di ricostruzione applicata qualora gli altri dati appaiano coerenti ma il prezzo unitario sia minore o uguale a 0
+/// </summary>
 public class ReconstructUnitPriceRule : IReconstructionRule
 {
     private readonly ILogger<ReconstructUnitPriceRule> _logger;
@@ -18,9 +21,9 @@ public class ReconstructUnitPriceRule : IReconstructionRule
 
         return line.Revenue.HasValue && line.Revenue > 0 &&
                line.Quantity.HasValue && line.Quantity > 0 &&
-               line.UnitPrice.HasValue && line.UnitPrice <= 0 &&
+               (line.UnitPrice == null || line.UnitPrice <= 0) && // Rileva un dato errato
                line.DiscountPct.HasValue && line.DiscountPct >= 0 &&
-               line.ShippingCost.HasValue && line.ShippingCost >=0;
+               line.ShippingCost.HasValue && line.ShippingCost >= 0;
     }
     
     public async Task ApplyAsync(ImportContext context)
