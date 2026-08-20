@@ -47,6 +47,7 @@ public class ReconstructUnitPriceRule : IReconstructionRule
         context.Messages.Add(msg);
         _logger.LogInformation("Ordine: {0} campo {1}", context.Data.Order.OrderID, msg);
 
+        // Dato corretto
         line.UnitPrice = calculatedUnitPrice;
     }
 }

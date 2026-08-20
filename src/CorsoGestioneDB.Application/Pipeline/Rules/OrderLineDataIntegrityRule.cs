@@ -19,21 +19,21 @@ public class OrderLineDataIntegrityRule : IReconstructionRule
     {
         var line = context.Data.OrderLine;
 
-        return line.Revenue.HasValue && line.Revenue > 0 &&
-               line.Quantity.HasValue && line.Quantity > 0 &&
+        return line.Quantity.HasValue && line.Quantity > 0 &&
                line.UnitPrice.HasValue && line.UnitPrice > 0 &&
                line.DiscountPct.HasValue && line.DiscountPct >= 0 &&
-               line.ShippingCost.HasValue && line.ShippingCost >= 0;
+               line.ShippingCost.HasValue && line.ShippingCost >= 0 &&              
+               line.Revenue.HasValue && line.Revenue > 0;
     }
 
     public async Task ApplyAsync(ImportContext context)
     {
         var line = context.Data.OrderLine;
-        var revenue = line.Revenue.GetValueOrDefault();
         var quantity = line.Quantity.GetValueOrDefault();
-        var shippingCost = line.ShippingCost.GetValueOrDefault();
         var unitPrice = line.UnitPrice.GetValueOrDefault();
         var discountPct = line.DiscountPct.GetValueOrDefault();
+        var shippingCost = line.ShippingCost.GetValueOrDefault();
+        var revenue = line.Revenue.GetValueOrDefault();
 
         // Prezzo unitario scontato
         var netUnitPrice = unitPrice * (1 - (discountPct / 100m));
