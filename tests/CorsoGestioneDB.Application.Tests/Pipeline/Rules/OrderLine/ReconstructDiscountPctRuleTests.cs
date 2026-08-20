@@ -3,7 +3,7 @@ using CorsoGestioneDB.Application.Pipeline.Rules;
 using CorsoGestioneDB.Domain.Entities;
 using Microsoft.Extensions.Logging.Abstractions;
 
-namespace CorsoGestioneDB.Application.Tests.Pipeline.Rules;
+namespace CorsoGestioneDB.Application.Tests.Pipeline.Rules.OrderLine;
 
 public class ReconstructDiscountPctRuleTests
 {
