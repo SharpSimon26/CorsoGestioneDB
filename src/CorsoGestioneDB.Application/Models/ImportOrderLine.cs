@@ -6,5 +6,6 @@ public class ImportOrderLine
     public decimal? UnitPrice { get; set; }
     public int? DiscountPct { get; set; }
     public decimal? ShippingCost { get; set; }
-    public decimal? Revenue { get; set; }
+    public decimal RoundingAdj { get; set; }
+    public decimal? Revenue { get; set; }   
 }

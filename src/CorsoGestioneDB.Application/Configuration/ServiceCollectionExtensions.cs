@@ -18,7 +18,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IReconstructionRule, ReconstructQuantityRule>();
         services.AddScoped<IReconstructionRule, ReconstructDiscountPctRule>();
         services.AddScoped<IReconstructionRule, ReconstructRevenueRule>();
-        services.AddScoped<IReconstructionRule, OrderLineDataIntegrityRule>();
+        services.AddScoped<IReconstructionRule, RoundingAdjustmentRule>();
 
         // Stadi della pipeline
         services.AddScoped<NormalizeStage>();
