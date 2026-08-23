@@ -43,4 +43,20 @@ public static class TextHelper
             return new NormalizeResult<string?>(value, null);
         }
     }
+
+    public static NormalizeResult<string?> NormalizeCapitalizeFirst(string? value)
+    {
+        var trimmedValue = Normalize(value).Value;
+
+        if (trimmedValue != null)
+        {
+            string ucValue = char.ToUpper(trimmedValue[0]) + trimmedValue.Substring(1).ToLower();
+
+            return new NormalizeResult<string?>(value, ucValue);  
+        }
+        else
+        {
+            return new NormalizeResult<string?>(value, null);
+        }
+    }
 }

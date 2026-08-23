@@ -1,6 +1,5 @@
 using CorsoGestioneDB.Application.Engine;
 using CorsoGestioneDB.Application.Pipeline.Rules;
-using CorsoGestioneDB.Application.Tests.Pipeline.Rules.OrderLine;
 using CorsoGestioneDB.Domain.Entities;
 using Microsoft.Extensions.Logging.Abstractions;
 
@@ -13,6 +12,7 @@ public class ReconstructOrderStatusRuleTests
         DateTime? OrderDate,
         string? OrderStatus,
         DateTime? DeliveryDate,
+        bool ExpectedApply,
         string? ExpectedOrderStatus
     );
 
@@ -21,17 +21,26 @@ public class ReconstructOrderStatusRuleTests
         new(
             "ORD000358", new DateTime(2024, 12, 07, 03, 43, 44, DateTimeKind.Unspecified),
             "Unknown", new DateTime(2024, 12, 11, 0, 0, 0, DateTimeKind.Unspecified),
-            "Consegnato"
+            true, "Consegnato"
         ),
         new(
             "ORD000420", new DateTime(2025, 06, 17, 10, 53, 15, DateTimeKind.Unspecified),
             null, new DateTime(2025, 06, 24, 0, 0, 0, DateTimeKind.Unspecified),
-            "Consegnato"
+            true, "Consegnato"
         ),
         new(
             "ORD001256", new DateTime(2024, 05, 01, 23, 35, 18, DateTimeKind.Unspecified),
             null, null,
-            "Unknown"
+            true, "Unknown"
+        ),
+        new(
+            "ORD000100", new DateTime(2025, 12, 18, 20, 02, 13, DateTimeKind.Unspecified),
+            "Spedito",	new DateTime(2025, 12, 27, 0, 0, 0, DateTimeKind.Unspecified),
+            true, "Consegnato"
+        ),
+        new("ORD006025", new DateTime(2024, 07, 07, 14, 20, 11, DateTimeKind.Unspecified),
+            "In lavorazione", new DateTime(2023, 01, 01, 0, 0, 0, DateTimeKind.Unspecified),
+            true, "Consegnato"
         )
     ];
 
@@ -47,7 +56,8 @@ public class ReconstructOrderStatusRuleTests
 
         var reconstructOrderStatusRule = new ReconstructOrderStatusRule(NullLogger<ReconstructOrderStatusRule>.Instance);
 
-        Assert.True(reconstructOrderStatusRule.CanApply(context));
+        var canApplyToContext = reconstructOrderStatusRule.CanApply(context);
+        Assert.Equal(testCase.ExpectedApply, canApplyToContext);
 
         await reconstructOrderStatusRule.ApplyAsync(context);
 

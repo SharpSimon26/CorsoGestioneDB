@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 namespace CorsoGestioneDB.Application.Pipeline.Rules;
 
 /// <summary>
-/// Regola di ricostruzione applicata qualora OrderStatus sia NULL o Unknown
+/// Regola di ricostruzione applicata a OrderStatus
 /// </summary>
 public class ReconstructOrderStatusRule : IReconstructionRule
 {
@@ -19,7 +19,10 @@ public class ReconstructOrderStatusRule : IReconstructionRule
     {
         var order = context.Data.Order;
 
-        return order.OrderStatus == null || order.OrderStatus == "Unknown";
+        return order.OrderStatus == null || 
+               order.OrderStatus.Equals("Unknown", StringComparison.OrdinalIgnoreCase) ||
+               (order.OrderStatus.Equals("In lavorazione", StringComparison.OrdinalIgnoreCase) && order.DeliveryDate != null) ||
+               (order.OrderStatus.Equals("Spedito", StringComparison.OrdinalIgnoreCase) && order.DeliveryDate != null);
     }
 
     public async Task ApplyAsync(ImportContext context)
