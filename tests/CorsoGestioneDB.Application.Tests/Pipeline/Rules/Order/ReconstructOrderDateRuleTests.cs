@@ -1,9 +1,8 @@
 using CorsoGestioneDB.Application.Engine;
 using CorsoGestioneDB.Domain.Entities;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
-namespace CorsoGestioneDB.Application.Pipeline.Rules;
+namespace CorsoGestioneDB.Application.Pipeline.Rules.Order;
 
 public class ReconstructOrderDateRuleTests
 {
