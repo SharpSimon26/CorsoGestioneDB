@@ -3,14 +3,14 @@ using Microsoft.Extensions.Logging;
 
 namespace CorsoGestioneDB.Application.Pipeline.Rules;
 
-/// <summary>
-/// Regola di ricostruzione applicata qualora gli altri dati appaiano coerenti
-/// ma il prezzo unitario sia minore o uguale a 0
-/// </summary>
 public class ReconstructUnitPriceRule : IReconstructionRule
 {
     private readonly ILogger<ReconstructUnitPriceRule> _logger;
 
+    /// <summary>
+    /// Regola di ricostruzione applicata qualora gli altri dati appaiano coerenti
+    /// ma il prezzo unitario sia minore o uguale a 0
+    /// </summary>
     public ReconstructUnitPriceRule(ILogger<ReconstructUnitPriceRule> logger)
     {
         _logger = logger;

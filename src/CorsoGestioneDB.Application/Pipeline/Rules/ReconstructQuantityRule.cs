@@ -3,14 +3,14 @@ using Microsoft.Extensions.Logging;
 
 namespace CorsoGestioneDB.Application.Pipeline.Rules;
 
-/// <summary>
-/// Regola di ricostruzione applicata qualora gli altri dati appaiano coerenti
-/// ma la quantità sia minore o uguale a 0
-/// </summary>
 public class ReconstructQuantityRule : IReconstructionRule
 {
     private readonly ILogger<ReconstructQuantityRule> _logger;
 
+    /// <summary>
+    /// Regola di ricostruzione applicata qualora gli altri dati appaiano coerenti
+    /// ma la quantità sia minore o uguale a 0
+    /// </summary>
     public ReconstructQuantityRule(ILogger<ReconstructQuantityRule> logger)
     {
         _logger = logger;

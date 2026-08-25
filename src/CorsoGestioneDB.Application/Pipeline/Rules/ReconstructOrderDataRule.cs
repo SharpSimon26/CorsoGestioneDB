@@ -3,16 +3,16 @@ using Microsoft.Extensions.Logging;
 
 namespace CorsoGestioneDB.Application.Pipeline.Rules;
 
-/// <summary>
-/// Regola di ricostruzione applicata a OrderDate qualora sia NULL 
-/// e DeliveryDate sia valorizzato.
-/// Essendo NULL, il campo OrderDate viene valorizzato con un dato 
-/// verosimile di 4 giorni prima della DeliveryDate
-/// </summary>
 public class ReconstructOrderDateRule : IReconstructionRule
 {
     private readonly ILogger<ReconstructOrderDateRule> _logger;
 
+    /// <summary>
+    /// Regola di ricostruzione applicata a OrderDate qualora sia NULL 
+    /// e DeliveryDate sia valorizzato.
+    /// Essendo NULL, il campo OrderDate viene valorizzato con un dato 
+    /// verosimile di 4 giorni prima della DeliveryDate
+    /// </summary>
     public ReconstructOrderDateRule(ILogger<ReconstructOrderDateRule> logger)
     {
         _logger = logger;

@@ -3,14 +3,14 @@ using Microsoft.Extensions.Logging;
 
 namespace CorsoGestioneDB.Application.Pipeline.Rules;
 
-/// <summary>
-/// Regola di ricostruzione applicata qualora gli altri dati appaiano coerenti 
-/// ma la percentuale di sconto sia minore di 0 o maggiore di 99
-/// </summary>
 public class ReconstructDiscountPctRule : IReconstructionRule
 {
     private readonly ILogger<ReconstructDiscountPctRule> _logger;
 
+    /// <summary>
+    /// Regola di ricostruzione applicata qualora gli altri dati appaiano coerenti 
+    /// ma la percentuale di sconto sia minore di 0 o maggiore di 99
+    /// </summary>
     public ReconstructDiscountPctRule(ILogger<ReconstructDiscountPctRule> logger)
     {
         _logger = logger;

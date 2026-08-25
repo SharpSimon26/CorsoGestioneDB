@@ -3,14 +3,14 @@ using Microsoft.Extensions.Logging;
 
 namespace CorsoGestioneDB.Application.Pipeline.Rules;
 
-/// <summary>
-/// Regola di ricostruzione applicata qualora gli altri dati appaiano coerenti
-/// ma Revenue sia minore o uguale a 0
-/// </summary>
 public class ReconstructRevenueRule : IReconstructionRule
 {
     private readonly ILogger<ReconstructRevenueRule> _logger;
 
+/// <summary>
+/// Regola di ricostruzione applicata qualora gli altri dati appaiano coerenti
+/// ma Revenue sia minore o uguale a 0
+/// </summary>
     public ReconstructRevenueRule(ILogger<ReconstructRevenueRule> logger)
     {
         _logger = logger;
