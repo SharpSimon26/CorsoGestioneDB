@@ -10,6 +10,7 @@ public class ImportContext
     public StagingOrder RawOrder { get; private set; }
     public ImportData Data { get; private set; }
     public List<string> Messages { get; private set; }
+    public List<ImportIssue> Issues { get; private set; }
     public ImportRecordStatus Status { get; private set; }
     public string? RejectReason { get; private set; }
 
@@ -19,6 +20,12 @@ public class ImportContext
         Status = ImportRecordStatus.Pending;
         Data = new();
         Messages = [];
+        Issues = [];
+    }
+
+    public void AddIssue(string field, string message)
+    {
+        Issues.Add(new ImportIssue(field, message));
     }
 
     public bool IsProcessable()

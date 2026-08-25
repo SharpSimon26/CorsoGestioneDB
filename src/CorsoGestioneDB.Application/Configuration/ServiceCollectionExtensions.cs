@@ -24,6 +24,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IReconstructionRule, ReconstructRoundingAdjustmentRule>();
 
         // Regole di risoluzione delle foreign key
+        services.AddScoped<IResolutionRule, ResolveOrderStatusRule>();
 
         // Stadi della pipeline
         services.AddScoped<NormalizeStage>();

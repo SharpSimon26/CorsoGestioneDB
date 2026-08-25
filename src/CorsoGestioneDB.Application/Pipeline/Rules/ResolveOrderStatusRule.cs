@@ -38,7 +38,7 @@ public class ResolveOrderStatusRule : IResolutionRule
         }
         else
         {
-            // add issue
+            context.AddIssue("OrderStatus", $"Stato '{order.OrderStatus}' non trovato.");
         }
     }
 }
