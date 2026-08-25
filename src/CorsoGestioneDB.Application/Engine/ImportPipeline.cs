@@ -8,17 +8,19 @@ public class ImportPipeline
     private readonly DuplicateStage _duplicate;    
     private readonly ConvertStage _convert;
     private readonly ReconstructStage _reconstruct;
+    private readonly ResolveStage _resolve;
     private readonly ValidateStage _validate;
     private readonly ImportStage _import;
     private readonly LogStage _log;
 
     public ImportPipeline(NormalizeStage normalize, DuplicateStage duplicate, ConvertStage convert,
-        ReconstructStage reconstruct, ValidateStage validate, ImportStage import, LogStage log)
+        ReconstructStage reconstruct, ResolveStage resolve, ValidateStage validate, ImportStage import, LogStage log)
     {
         _normalize = normalize;
-        _duplicate = duplicate;        
+        _duplicate = duplicate;
         _convert = convert;
         _reconstruct = reconstruct;
+        _resolve = resolve;
         _validate = validate;
         _import = import;
         _log = log;
@@ -38,13 +40,16 @@ public class ImportPipeline
         // 4. Reconstruct
         await _reconstruct.ExecuteAsync(contexts);
 
-        // 5. Validate
+        // 5. Resolve
+        await _resolve.ExecuteAsync(contexts);
+
+        // 6. Validate
         await _validate.ExecuteAsync(contexts);
 
-        // 6. Import
+        // 7. Import
         await _import.ExecuteAsync(contexts);
 
-        // 7. Log
+        // 8. Log
         await _log.ExecuteAsync(contexts);
     }
 }

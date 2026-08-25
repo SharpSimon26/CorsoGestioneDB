@@ -29,7 +29,8 @@ public static class ServiceCollectionExtensions
         services.AddScoped<NormalizeStage>();
         services.AddScoped<DuplicateStage>();
         services.AddScoped<ConvertStage>();
-        services.AddScoped<ReconstructStage>();        
+        services.AddScoped<ReconstructStage>();
+        services.AddScoped<ResolveStage>();
         services.AddScoped<ValidateStage>();
         services.AddScoped<ImportStage>();
         services.AddScoped<LogStage>();
