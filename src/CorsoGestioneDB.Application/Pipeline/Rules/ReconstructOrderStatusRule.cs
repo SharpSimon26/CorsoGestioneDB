@@ -28,21 +28,23 @@ public class ReconstructOrderStatusRule : IReconstructionRule
     public async Task ApplyAsync(ImportContext context)
     {
         var order = context.Data.Order;
+
+        string calculatedOrderStatus;
        
         if (order.OrderStatus == null && order.DeliveryDate == null)
         {
-            var calculatedOrderStatus = "Unknown";
+            calculatedOrderStatus = "Unknown";
 
             var msg = string.Format("OrderStatus modificato in {0} valore originale {1}", calculatedOrderStatus, order.OrderStatus);
             context.Messages.Add(msg);
             _logger.LogInformation("Ordine: {0} campo {1}", context.Data.Order.OrderID, msg);
 
-            // Dato correto
+            // Dato corretto
             order.OrderStatus = calculatedOrderStatus;
         }
         else if (order.DeliveryDate != null)
         {
-            var calculatedOrderStatus = "Consegnato";
+            calculatedOrderStatus = "Consegnato";
 
             var msg = string.Format("OrderStatus modificato in {0} valore originale {1}", calculatedOrderStatus, order.OrderStatus);
             context.Messages.Add(msg);
