@@ -2,6 +2,6 @@
 
 public class PaymentMethod
 {
-    public int OrderStatusID { get; set; }
-    public string OrderStatusName { get; set; } = string.Empty;
+    public int PaymentMethodID { get; set; }
+    public string PaymentMethodName { get; set; } = string.Empty;
 }
