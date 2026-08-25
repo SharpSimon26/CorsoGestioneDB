@@ -12,12 +12,21 @@ public class OrderStatusRepository : AbstractRepository, IOrderStatusRepository
     {
     }
 
-    public async Task<IEnumerable<OrderStatus>> GetAllAsync()
+    public virtual async Task<IEnumerable<OrderStatus>> GetAllAsync()
     {
         using IDbConnection db = connectionFactory.CreateConnection();
         var sql = "select * from OrderStatuses order by OrderStatusName";
         var orderStatuses = await db.QueryAsync<OrderStatus>(sql);
 
         return orderStatuses;
+    }
+
+    public virtual async Task<OrderStatus?> GetByNameAsync(string orderStatusName)
+    {
+        using IDbConnection db = connectionFactory.CreateConnection();
+        var sql = "select * from OrderStatuses where OrderStatusName = @orderStatusName";
+        var orderStatus = await db.QueryFirstOrDefaultAsync<OrderStatus>(sql, new { orderStatusName });
+
+        return orderStatus;
     }
 }

@@ -20,6 +20,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<IOrderLineRepository, OrderLineRepository>();
         services.AddScoped<IOrderStatusRepository, OrderStatusRepository>();
+        services.AddScoped<ICachedOrderStatusRepository, CachedOrderStatusRepository>();
         services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IProvinceRepository, ProvinceRepository>();
