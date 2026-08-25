@@ -21,7 +21,9 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IReconstructionRule, ReconstructQuantityRule>();
         services.AddScoped<IReconstructionRule, ReconstructDiscountPctRule>();
         services.AddScoped<IReconstructionRule, ReconstructRevenueRule>();
-        services.AddScoped<IReconstructionRule, RoundingAdjustmentRule>();
+        services.AddScoped<IReconstructionRule, ReconstructRoundingAdjustmentRule>();
+
+        // Regole di risoluzione delle foreign key
 
         // Stadi della pipeline
         services.AddScoped<NormalizeStage>();

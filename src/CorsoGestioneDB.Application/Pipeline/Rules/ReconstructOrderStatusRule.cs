@@ -3,13 +3,13 @@ using Microsoft.Extensions.Logging;
 
 namespace CorsoGestioneDB.Application.Pipeline.Rules;
 
-/// <summary>
-/// Regola di ricostruzione applicata a OrderStatus
-/// </summary>
 public class ReconstructOrderStatusRule : IReconstructionRule
 {
     private readonly ILogger<ReconstructOrderStatusRule> _logger;
 
+    /// <summary>
+    /// Regola di ricostruzione applicata a OrderStatus
+    /// </summary>
     public ReconstructOrderStatusRule(ILogger<ReconstructOrderStatusRule> logger)
     {
         _logger = logger;

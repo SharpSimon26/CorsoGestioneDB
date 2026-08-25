@@ -5,9 +5,9 @@ using Microsoft.Extensions.Logging.Abstractions;
 
 namespace CorsoGestioneDB.Application.Tests.Pipeline.Rules.OrderLine;
 
-public class RoundingAdjustmentRuleTests
+public class ReconstructRoundingAdjustmentRuleTests
 {
-    public record RoundingAdjustmentRuleTestCase(
+    public record ReconstructRoundingAdjustmentRuleTestCase(
         string? OrderId,
         int? Quantity,
         decimal? UnitPrice,
@@ -17,7 +17,7 @@ public class RoundingAdjustmentRuleTests
         decimal? ExpectedAdjustment,
         bool IsRejected);
 
-    public static TheoryData<RoundingAdjustmentRuleTestCase> RoundingAdjustmentRuleData =
+    public static TheoryData<ReconstructRoundingAdjustmentRuleTestCase> ReconstructRoundingAdjustmentRuleData =
     [
         // OrderID        Qty  UnitPrice  DiscPct  ShipCost  Revenue    ExpAdjustment  IsRejected
         new("ORD000784",  1,   1234.50m,  20,      4.90m,    153.44m,   839.06m,       true),
@@ -25,8 +25,8 @@ public class RoundingAdjustmentRuleTests
     ];
 
     [Theory]
-    [MemberData(nameof(RoundingAdjustmentRuleData))]
-    public async Task Rounding_Revenue_Adjusts_Or_Rejects(RoundingAdjustmentRuleTestCase testCase)
+    [MemberData(nameof(ReconstructRoundingAdjustmentRuleData))]
+    public async Task Rounding_Revenue_Adjusts_Or_Rejects(ReconstructRoundingAdjustmentRuleTestCase testCase)
     {
         var context = new ImportContext(new StagingOrder());
         context.Data.Order.OrderID = testCase.OrderId;
@@ -36,7 +36,7 @@ public class RoundingAdjustmentRuleTests
         context.Data.OrderLine.ShippingCost = testCase.ShippingCost;
         context.Data.OrderLine.Revenue = testCase.Revenue;
 
-        var roundingAdjustmentRule = new RoundingAdjustmentRule(NullLogger<RoundingAdjustmentRule>.Instance);
+        var roundingAdjustmentRule = new ReconstructRoundingAdjustmentRule(NullLogger<ReconstructRoundingAdjustmentRule>.Instance);
 
         Assert.True(roundingAdjustmentRule.CanApply(context));
 
