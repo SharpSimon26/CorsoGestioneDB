@@ -1,4 +1,5 @@
 using CorsoGestioneDB.Application.Engine;
+using CorsoGestioneDB.Application.Models;
 using Microsoft.Extensions.Logging;
 
 namespace CorsoGestioneDB.Application.Pipeline.Rules;
@@ -32,9 +33,8 @@ public class ReconstructOrderDateRule : IReconstructionRule
 
         var calculatedOrderDate = deliveryDate.Subtract(TimeSpan.FromDays(4));
 
-        var msg = string.Format("OrderDate modificato in {0} valore originale {1}", calculatedOrderDate.ToString(), order.OrderDate?.ToString() ?? "NULL");
-        context.Messages.Add(msg);
-        _logger.LogInformation("Ordine: {0} campo {1}", context.Data.Order.OrderID, msg);
+        // Traccia della modifica
+        context.AddModification("OrderDate", calculatedOrderDate, order.OrderDate, GetType().Name, Stage.RECONSTRUCT);
 
         // Dato verosimile
         order.OrderDate = calculatedOrderDate;

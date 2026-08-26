@@ -45,6 +45,6 @@ public class NormalizeStageTests
         Assert.Equal(testCase.ExpectedOrderID, context.RawOrder.OrderID);
         Assert.Equal(testCase.ExpectedEmail, context.RawOrder.Email);        
         Assert.Equal(ImportRecordStatus.Pending, context.Status);
-        Assert.Equal(2, context.Messages.Count);
+        Assert.Equal(2, context.Modifications.Count);
     }
 }

@@ -39,6 +39,6 @@ public class ReconstructOrderDateRuleTests
         await reconstructOrderDateRule.ApplyAsync(context);
 
         Assert.Equal(testCase.ExpectedOrderDate, context.Data.Order.OrderDate);
-        Assert.Single(context.Messages);
+        Assert.Single(context.Modifications);
     }
 }

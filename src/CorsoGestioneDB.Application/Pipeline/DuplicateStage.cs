@@ -28,13 +28,11 @@ public class DuplicateStage : StageBase
             {
                 if (IsDuplicate(item, firstItem))
                 {
-                    item.MarkAsDuplicate();
-                    logger.LogInformation("Rilevato Ordine {0} duplicato", item.RawOrder.OrderID);
+                    item.MarkAsDuplicate(string.Format("Rilevato Ordine {0} duplicato", item.RawOrder.OrderID));
                 }
                 else
                 {
-                    item.MarkAsConflict();
-                    logger.LogInformation("Rilevato Ordine {0} in conflitto", item.RawOrder.OrderID);
+                    item.MarkAsConflict(string.Format("Rilevato Ordine {0} in conflitto", item.RawOrder.OrderID));
                 }
             }
         }

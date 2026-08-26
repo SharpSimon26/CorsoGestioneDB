@@ -1,4 +1,5 @@
 using CorsoGestioneDB.Application.Engine;
+using CorsoGestioneDB.Application.Models;
 using Microsoft.Extensions.Logging;
 
 namespace CorsoGestioneDB.Application.Pipeline.Rules;
@@ -30,28 +31,24 @@ public class ReconstructOrderStatusRule : IReconstructionRule
         var order = context.Data.Order;
 
         string calculatedOrderStatus;
-       
+
         if (order.OrderStatus == null && order.DeliveryDate == null)
         {
             calculatedOrderStatus = "Unknown";
-
-            var msg = string.Format("OrderStatus modificato in {0} valore originale {1}", calculatedOrderStatus, order.OrderStatus);
-            context.Messages.Add(msg);
-            _logger.LogInformation("Ordine: {0} campo {1}", context.Data.Order.OrderID, msg);
-
-            // Dato corretto
-            order.OrderStatus = calculatedOrderStatus;
         }
         else if (order.DeliveryDate != null)
         {
             calculatedOrderStatus = "Consegnato";
-
-            var msg = string.Format("OrderStatus modificato in {0} valore originale {1}", calculatedOrderStatus, order.OrderStatus);
-            context.Messages.Add(msg);
-            _logger.LogInformation("Ordine: {0} campo {1}", context.Data.Order.OrderID, msg);
-
-            // Dato corretto
-            order.OrderStatus = calculatedOrderStatus;
         }
+        else
+        {
+            return;
+        }
+
+        // Traccia della modifica
+        context.AddModification("OrderStatus", calculatedOrderStatus, order.OrderStatus, GetType().Name, Stage.RECONSTRUCT);
+
+        // Dato corretto
+        order.OrderStatus = calculatedOrderStatus;        
     }
 }

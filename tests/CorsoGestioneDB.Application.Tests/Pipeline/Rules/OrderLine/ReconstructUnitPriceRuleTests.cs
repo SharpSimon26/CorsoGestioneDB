@@ -46,6 +46,6 @@ public class ReconstructUnitPriceRuleTests
         await reconstructUnitPriceRule.ApplyAsync(context);
 
         Assert.Equal(expectedUnitPrice, context.Data.OrderLine.UnitPrice);
-        Assert.Single(context.Messages);
+        Assert.Single(context.Modifications);
     }   
 }

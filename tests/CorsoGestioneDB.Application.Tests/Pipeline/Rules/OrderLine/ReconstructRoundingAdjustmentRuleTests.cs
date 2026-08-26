@@ -44,6 +44,6 @@ public class ReconstructRoundingAdjustmentRuleTests
 
         Assert.Equal(testCase.ExpectedAdjustment, context.Data.OrderLine.RoundingAdj);
         Assert.Equal(testCase.IsRejected, context.IsRejected());
-        Assert.Single(context.Messages);
+        Assert.Single(context.Modifications);
     }
 }

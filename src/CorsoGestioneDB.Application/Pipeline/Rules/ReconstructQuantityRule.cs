@@ -1,4 +1,5 @@
 using CorsoGestioneDB.Application.Engine;
+using CorsoGestioneDB.Application.Models;
 using Microsoft.Extensions.Logging;
 
 namespace CorsoGestioneDB.Application.Pipeline.Rules;
@@ -43,9 +44,8 @@ public class ReconstructQuantityRule : IReconstructionRule
             (revenue - shippingCost) / netUnitPrice, 0, MidpointRounding.AwayFromZero
         );
 
-        var msg = string.Format("Quantity modificato in {0} valore originale {1}", calculatedQuantity, line.Quantity);
-        context.Messages.Add(msg);
-        _logger.LogInformation("Ordine: {0} campo {1}", context.Data.Order.OrderID, msg);
+        // Traccia della modifica
+        context.AddModification("Quantity", calculatedQuantity, line.Quantity, GetType().Name, Stage.RECONSTRUCT);
 
         // Dato corretto
         line.Quantity = calculatedQuantity;

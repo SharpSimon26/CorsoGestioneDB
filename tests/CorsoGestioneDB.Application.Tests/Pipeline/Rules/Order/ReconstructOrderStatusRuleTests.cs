@@ -62,6 +62,6 @@ public class ReconstructOrderStatusRuleTests
         await reconstructOrderStatusRule.ApplyAsync(context);
 
         Assert.Equal(testCase.ExpectedOrderStatus, context.Data.Order.OrderStatus);
-        Assert.Single(context.Messages);
+        Assert.Single(context.Modifications);
     }
 }

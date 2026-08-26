@@ -1,4 +1,5 @@
 using CorsoGestioneDB.Application.Engine;
+using CorsoGestioneDB.Application.Models;
 using Microsoft.Extensions.Logging;
 
 namespace CorsoGestioneDB.Application.Pipeline.Rules;
@@ -43,9 +44,8 @@ public class ReconstructUnitPriceRule : IReconstructionRule
             (revenue - shippingCost) / discountFactor, 2, MidpointRounding.AwayFromZero
         );
 
-        var msg = string.Format("UnitPrice modificato in {0} valore originale {1}", calculatedUnitPrice, line.UnitPrice);
-        context.Messages.Add(msg);
-        _logger.LogInformation("Ordine: {0} campo {1}", context.Data.Order.OrderID, msg);
+        // Traccia della modifica
+        context.AddModification("UnitPrice", calculatedUnitPrice, line.UnitPrice, GetType().Name, Stage.RECONSTRUCT);
 
         // Dato corretto
         line.UnitPrice = calculatedUnitPrice;

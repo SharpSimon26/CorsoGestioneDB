@@ -1,4 +1,5 @@
 using CorsoGestioneDB.Application.Engine;
+using CorsoGestioneDB.Application.Models;
 using Microsoft.Extensions.Logging;
 
 namespace CorsoGestioneDB.Application.Pipeline.Rules;
@@ -48,9 +49,8 @@ public class ReconstructDiscountPctRule : IReconstructionRule
         var decDiscountPct = Math.Round(discountRatio * 100m, 2, MidpointRounding.AwayFromZero);
         var calculatedDiscountPct = (int)decDiscountPct;
 
-        var msg = string.Format("DiscountPct modificato in {0} valore originale {1}", calculatedDiscountPct, line.DiscountPct);
-        context.Messages.Add(msg);
-        _logger.LogInformation("Ordine: {0} campo {1}", context.Data.Order.OrderID, msg);
+        // Traccia della modifica
+        context.AddModification("DiscountPct", calculatedDiscountPct, line.DiscountPct, GetType().Name, Stage.RECONSTRUCT);
 
         // Dato corretto
         line.DiscountPct = calculatedDiscountPct;

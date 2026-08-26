@@ -1,13 +1,12 @@
 ﻿using CorsoGestioneDB.Application.Engine;
 using CorsoGestioneDB.Application.Helpers;
+using CorsoGestioneDB.Application.Models;
 using Microsoft.Extensions.Logging;
 
 namespace CorsoGestioneDB.Application.Pipeline;
 
 public class NormalizeStage : StageBase
 {
-    private const string NORM_LOG_MESSAGE = "{0} Campo {1} normalizzato. Valore originale: \"{2}\". Valore normalizzato: \"{3}\".";
-
     public NormalizeStage(ILogger<NormalizeStage> logger) : base(logger)
     {
     }
@@ -19,7 +18,7 @@ public class NormalizeStage : StageBase
             NormalizeOrder(context);
             // NormalizeOrderLine(context);
             NormalizeCustomer(context);
-            NormalizeProduct(context);            
+            NormalizeProduct(context);
         }
     }
 
@@ -30,10 +29,8 @@ public class NormalizeStage : StageBase
 
         if (orderId.Changed)
         {
+            context.AddModification("OrderID", orderId.Value, orderId.OriginalValue, GetType().Name, Stage.NORMALIZE);
             context.RawOrder.OrderID = orderId.Value;
-            var msg = string.Format(NORM_LOG_MESSAGE, orderId.Value, "OrderID", orderId.OriginalValue, orderId.Value);
-            context.Messages.Add(msg);
-            logger.LogInformation(msg);
         }
 
         // OrderDate
@@ -43,10 +40,8 @@ public class NormalizeStage : StageBase
 
         if (paymentMethod.Changed)
         {
+            context.AddModification("PaymentMethod", paymentMethod.Value, paymentMethod.OriginalValue, GetType().Name, Stage.NORMALIZE);
             context.RawOrder.PaymentMethod = paymentMethod.Value;
-            var msg = string.Format(NORM_LOG_MESSAGE, context.RawOrder.OrderID, "PaymentMethod", paymentMethod.OriginalValue, paymentMethod.Value);
-            context.Messages.Add(msg);
-            logger.LogInformation(msg);
         }
 
         // SalesChannel
@@ -54,10 +49,8 @@ public class NormalizeStage : StageBase
 
         if (salesChannel.Changed)
         {
+            context.AddModification("SalesChannel", salesChannel.Value, salesChannel.OriginalValue, GetType().Name, Stage.NORMALIZE);
             context.RawOrder.SalesChannel = salesChannel.Value;
-            var msg = string.Format(NORM_LOG_MESSAGE, context.RawOrder.OrderID, "SalesChannel", salesChannel.OriginalValue, salesChannel.Value);
-            context.Messages.Add(msg);
-            logger.LogInformation(msg);
         }
 
         // OrderStatus
@@ -65,10 +58,8 @@ public class NormalizeStage : StageBase
 
         if (orderStatus.Changed)
         {
+            context.AddModification("OrderStatus", orderStatus.Value, orderStatus.OriginalValue, GetType().Name, Stage.NORMALIZE);
             context.RawOrder.OrderStatus = orderStatus.Value;
-            var msg = string.Format(NORM_LOG_MESSAGE, context.RawOrder.OrderID, "OrderStatus", orderStatus.OriginalValue, orderStatus.Value);
-            context.Messages.Add(msg);
-            logger.LogInformation(msg);
         }
 
         // DeliveryDate
@@ -92,10 +83,8 @@ public class NormalizeStage : StageBase
 
         if (firstName.Changed)
         {
+            context.AddModification("FirstName", firstName.Value, firstName.OriginalValue, GetType().Name, Stage.NORMALIZE);
             context.RawOrder.FirstName = firstName.Value;
-            var msg = string.Format(NORM_LOG_MESSAGE, context.RawOrder.OrderID, "FirstName", firstName.OriginalValue, firstName.Value);
-            context.Messages.Add(msg);
-            logger.LogInformation(msg);
         }
 
         // LastName
@@ -103,10 +92,8 @@ public class NormalizeStage : StageBase
 
         if (lastName.Changed)
         {
+            context.AddModification("LastName", lastName.Value, lastName.OriginalValue, GetType().Name, Stage.NORMALIZE);
             context.RawOrder.LastName = lastName.Value;
-            var msg = string.Format(NORM_LOG_MESSAGE, context.RawOrder.OrderID, "LastName", lastName.OriginalValue, lastName.Value);
-            context.Messages.Add(msg);
-            logger.LogInformation(msg);
         }
 
         // Email
@@ -114,10 +101,8 @@ public class NormalizeStage : StageBase
 
         if (email.Changed)
         {
+            context.AddModification("Email", email.Value, email.OriginalValue, GetType().Name, Stage.NORMALIZE);
             context.RawOrder.Email = email.Value;
-            var msg = string.Format(NORM_LOG_MESSAGE, context.RawOrder.OrderID, "Email", email.OriginalValue, email.Value);
-            context.Messages.Add(msg);
-            logger.LogInformation(msg);
         }
 
         // Phone
@@ -125,8 +110,8 @@ public class NormalizeStage : StageBase
 
         if (phone.Changed)
         {
+            context.AddModification("Phone", phone.Value, phone.OriginalValue, GetType().Name, Stage.NORMALIZE);
             context.RawOrder.Phone = phone.Value;
-            logger.LogInformation(NORM_LOG_MESSAGE, context.RawOrder.OrderID, "Phone", phone.OriginalValue, phone.Value);
         }
 
         // City
@@ -134,8 +119,8 @@ public class NormalizeStage : StageBase
 
         if (city.Changed)
         {
+            context.AddModification("City", city.Value, city.OriginalValue, GetType().Name, Stage.NORMALIZE);
             context.RawOrder.City = city.Value;
-            logger.LogInformation(NORM_LOG_MESSAGE, context.RawOrder.OrderID, "City", city.OriginalValue, city.Value);
         }
 
         // Province
@@ -143,8 +128,8 @@ public class NormalizeStage : StageBase
 
         if (province.Changed)
         {
+            context.AddModification("Province", province.Value, province.OriginalValue, GetType().Name, Stage.NORMALIZE);
             context.RawOrder.Province = province.Value;
-            logger.LogInformation(NORM_LOG_MESSAGE, context.RawOrder.OrderID, "Province", province.OriginalValue, province.Value);
         }
 
         // Region
@@ -152,8 +137,8 @@ public class NormalizeStage : StageBase
 
         if (region.Changed)
         {
+            context.AddModification("Region", region.Value, region.OriginalValue, GetType().Name, Stage.NORMALIZE);
             context.RawOrder.Region = region.Value;
-            logger.LogInformation(NORM_LOG_MESSAGE, context.RawOrder.OrderID, "Region", region.OriginalValue, region.Value);
         }
 
         // SignupDate
@@ -166,8 +151,8 @@ public class NormalizeStage : StageBase
 
         if (productCode.Changed)
         {
+            context.AddModification("ProductCode", productCode.Value, productCode.OriginalValue, GetType().Name, Stage.NORMALIZE);
             context.RawOrder.ProductCode = productCode.Value;
-            logger.LogInformation(NORM_LOG_MESSAGE, context.RawOrder.OrderID, "ProductCode", productCode.OriginalValue, productCode.Value);
         }
 
         // ProductNamw
@@ -175,8 +160,8 @@ public class NormalizeStage : StageBase
 
         if (productName.Changed)
         {
+            context.AddModification("ProductName", productName.Value, productName.OriginalValue, GetType().Name, Stage.NORMALIZE);
             context.RawOrder.ProductName = productName.Value;
-            logger.LogInformation(NORM_LOG_MESSAGE, context.RawOrder.OrderID, "ProductName", productName.OriginalValue, productName.Value);
         }
 
         // Category
@@ -184,8 +169,8 @@ public class NormalizeStage : StageBase
 
         if (category.Changed)
         {
+            context.AddModification("Category", category.Value, category.OriginalValue, GetType().Name, Stage.NORMALIZE);
             context.RawOrder.Category = category.Value;
-            logger.LogInformation(NORM_LOG_MESSAGE, context.RawOrder.OrderID, "Category", category.OriginalValue, category.Value);
         }
     }
 }

@@ -46,6 +46,6 @@ public class ReconstructDiscountPctRuleTests
         await reconstructDiscountPctRule.ApplyAsync(context);
 
         Assert.Equal(expectedDiscountPct, context.Data.OrderLine.DiscountPct);
-        Assert.Single(context.Messages);
+        Assert.Single(context.Modifications);
     }
 }

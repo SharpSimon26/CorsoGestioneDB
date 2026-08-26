@@ -43,6 +43,6 @@ public class ReconstructQuantityRuleTests
         await reconstructQuantityRule.ApplyAsync(context);
 
         Assert.Equal(expectedQuantity, context.Data.OrderLine.Quantity);
-        Assert.Single(context.Messages);
+        Assert.Single(context.Modifications);
     }
 }

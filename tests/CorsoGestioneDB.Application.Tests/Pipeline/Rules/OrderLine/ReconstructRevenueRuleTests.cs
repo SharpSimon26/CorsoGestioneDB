@@ -43,6 +43,6 @@ public class ReconstructRevenueRuleTests
         await reconstructRevenueRule.ApplyAsync(context);
 
         Assert.Equal(expectedRevenue, context.Data.OrderLine.Revenue);
-        Assert.Single(context.Messages);
+        Assert.Single(context.Modifications);
     }
 }

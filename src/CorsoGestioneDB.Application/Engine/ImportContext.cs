@@ -10,6 +10,7 @@ public class ImportContext
     public StagingOrder RawOrder { get; private set; }
     public ImportData Data { get; private set; }
     public List<string> Messages { get; private set; }
+    public List<ImportModification> Modifications { get; private set; }
     public List<ImportIssue> Issues { get; private set; }
     public ImportRecordStatus Status { get; private set; }
     public string? RejectReason { get; private set; }
@@ -20,7 +21,56 @@ public class ImportContext
         Status = ImportRecordStatus.Pending;
         Data = new();
         Messages = [];
+        Modifications = [];
         Issues = [];
+    }
+
+    public void AddModification(string field, string? newValue, string? originalValue, string message, Stage stage)
+    {
+        Modifications.Add(new ImportModification(
+            RawOrder.OrderID?.ToString() ?? "NULL",
+            field, 
+            newValue?.ToString() ?? "NULL",
+            originalValue?.ToString() ?? "NULL",
+            message,
+            stage
+        ));
+    }
+
+    public void AddModification(string field, int? newValue, int? originalValue, string message, Stage stage)
+    {
+        Modifications.Add(new ImportModification(
+            RawOrder.OrderID?.ToString() ?? "NULL",
+            field,
+            newValue?.ToString() ?? "NULL",
+            originalValue?.ToString() ?? "NULL",
+            message,
+            stage
+        ));
+    }
+
+    public void AddModification(string field, decimal? newValue, decimal? originalValue, string message, Stage stage)
+    {
+        Modifications.Add(new ImportModification(
+            RawOrder.OrderID?.ToString() ?? "NULL",
+            field,
+            newValue?.ToString() ?? "NULL",
+            originalValue?.ToString() ?? "NULL",
+            message,
+            stage
+        ));
+    }
+
+    public void AddModification(string field, DateTime? newValue, DateTime? originalValue, string message, Stage stage)
+    {
+        Modifications.Add(new ImportModification(
+            RawOrder.OrderID?.ToString() ?? "NULL",
+            field,
+            newValue?.ToString() ?? "NULL",
+            originalValue?.ToString() ?? "NULL",
+            message,
+            stage
+        ));
     }
 
     public void AddIssue(string field, string message)
@@ -35,7 +85,9 @@ public class ImportContext
 
     public bool IsRejected()
     {
-        return Status == ImportRecordStatus.Rejected || Status == ImportRecordStatus.Duplicate || Status == ImportRecordStatus.Conflict;
+        return Status == ImportRecordStatus.Rejected || 
+               Status == ImportRecordStatus.Duplicate || 
+               Status == ImportRecordStatus.Conflict;
     }
 
     public bool IsReady()

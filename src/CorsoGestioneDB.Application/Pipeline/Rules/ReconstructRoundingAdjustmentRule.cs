@@ -1,4 +1,5 @@
 using CorsoGestioneDB.Application.Engine;
+using CorsoGestioneDB.Application.Models;
 using Microsoft.Extensions.Logging;
 
 namespace CorsoGestioneDB.Application.Pipeline.Rules;
@@ -52,21 +53,19 @@ public class ReconstructRoundingAdjustmentRule : IReconstructionRule
             // Verifica la presenza di uno scostamento tra il dato calcolato e il dato in arrivo
             if (Math.Abs(roundingAdj) < 0.02m)
             {
-                var msg = string.Format("RoundingAdj modificato in {0} valore originale {1}", roundingAdj, line.RoundingAdj);
-                context.Messages.Add(msg);
-                _logger.LogInformation("Ordine: {0} campo {1}", context.Data.Order.OrderID, msg);
-
-                line.RoundingAdj = roundingAdj;
+                // Traccia della modifica
+                context.AddModification("RoundingAdj", roundingAdj, line.RoundingAdj, GetType().Name, Stage.RECONSTRUCT);
             }
             else
             {
-                var msg = string.Format("RoundingAdj {0} valore originale {1}. I dati dell'ordine non sono coerenti e non possono essere importati nel database", roundingAdj, line.RoundingAdj);
-                context.Messages.Add(msg);
-                _logger.LogError("Ordine: {0} campo {1}", context.Data.Order.OrderID, msg);
+                // Traccia della modifica
+                context.AddModification("RoundingAdj", roundingAdj, line.RoundingAdj, GetType().Name, Stage.RECONSTRUCT);
+                var msg = string.Format($"Arrotondamento: '{0}' I dati dell'ordine non sono coerenti e non possono essere importati nel database", roundingAdj);
+                context.AddIssue("RoundingAdj", msg);
                 context.MarkAsRejected(msg);
+            }
 
-                line.RoundingAdj = roundingAdj;
-            }            
+            line.RoundingAdj = roundingAdj;
         }
     }
 }

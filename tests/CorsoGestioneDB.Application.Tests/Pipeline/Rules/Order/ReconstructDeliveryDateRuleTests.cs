@@ -48,6 +48,6 @@ public class ReconstructDeliveryDateRuleTests
 
         await reconstructDeliveryDateRule.ApplyAsync(context);
         Assert.Equal(testCase.ExpectedDeliveryDate, context.Data.Order.DeliveryDate);
-        Assert.Single(context.Messages);
+        Assert.Single(context.Modifications);
     }
 }
