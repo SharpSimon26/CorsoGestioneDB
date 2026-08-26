@@ -8,7 +8,7 @@ namespace CorsoGestioneDB.Infrastructure.Repositories;
 
 public class PaymentMethodRepository : AbstractRepository, IPaymentMethodRepository
 {
-    public PaymentMethodRepository(DbConnectionFactory connectionFactory) : base(connectionFactory)
+    public PaymentMethodRepository(IDbConnectionFactory connectionFactory) : base(connectionFactory)
     {
     }
 

@@ -4,9 +4,9 @@ namespace CorsoGestioneDB.Infrastructure.Repositories;
 
 public abstract class AbstractRepository
 {
-    protected readonly DbConnectionFactory connectionFactory;
+    protected readonly IDbConnectionFactory connectionFactory;
 
-    protected AbstractRepository(DbConnectionFactory connectionFactory)
+    protected AbstractRepository(IDbConnectionFactory connectionFactory)
     {
         this.connectionFactory = connectionFactory;
     }

@@ -8,7 +8,7 @@ namespace CorsoGestioneDB.Infrastructure.Repositories;
 
 public class StagingOrderRepository : AbstractRepository,  IStagingOrderRepository
 {
-    public StagingOrderRepository(DbConnectionFactory connectionFactory) : base(connectionFactory)
+    public StagingOrderRepository(IDbConnectionFactory connectionFactory) : base(connectionFactory)
     {
     }
 

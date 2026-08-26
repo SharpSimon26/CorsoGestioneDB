@@ -8,7 +8,7 @@ namespace CorsoGestioneDB.Infrastructure.Repositories;
 
 public class RegionRepository : AbstractRepository, IRegionRepository
 {
-    public RegionRepository(DbConnectionFactory connectionFactory) : base(connectionFactory)
+    public RegionRepository(IDbConnectionFactory connectionFactory) : base(connectionFactory)
     {        
     }
 

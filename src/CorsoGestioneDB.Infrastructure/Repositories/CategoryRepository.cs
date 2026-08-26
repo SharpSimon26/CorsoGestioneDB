@@ -8,7 +8,7 @@ namespace CorsoGestioneDB.Infrastructure.Repositories;
 
 public class CategoryRepository : AbstractRepository, ICategoryRepository
 {
-    public CategoryRepository(DbConnectionFactory connectionFactory) : base(connectionFactory)
+    public CategoryRepository(IDbConnectionFactory connectionFactory) : base(connectionFactory)
     {
     }
 

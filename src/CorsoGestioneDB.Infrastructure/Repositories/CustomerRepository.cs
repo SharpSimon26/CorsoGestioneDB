@@ -8,11 +8,11 @@ namespace CorsoGestioneDB.Infrastructure.Repositories;
 
 public class CustomerRepository : AbstractRepository, ICustomerRepository
 {
-    public CustomerRepository(DbConnectionFactory connectionFactory) : base(connectionFactory)
+    public CustomerRepository(IDbConnectionFactory connectionFactory) : base(connectionFactory)
     {
     }
 
-    public async Task<Customer?> GetCustomerByIdAsync(int customerId)
+    public virtual async Task<Customer?> GetByIdAsync(int customerId)
     {
         using IDbConnection db = connectionFactory.CreateConnection();
         var sql = "select * from Customers where CustomerID = @customerId";

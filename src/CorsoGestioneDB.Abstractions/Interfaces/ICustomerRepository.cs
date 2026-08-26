@@ -4,5 +4,5 @@ namespace CorsoGestioneDB.Abstractions.Interfaces;
 
 public interface ICustomerRepository
 {
-    Task<Customer?> GetCustomerByIdAsync(int customerId);
+    Task<Customer?> GetByIdAsync(int customerId);
 }

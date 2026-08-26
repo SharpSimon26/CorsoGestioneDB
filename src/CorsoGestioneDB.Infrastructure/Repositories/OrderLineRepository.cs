@@ -8,7 +8,7 @@ namespace CorsoGestioneDB.Infrastructure.Repositories;
 
 public class OrderLineRepository : AbstractRepository, IOrderLineRepository
 {
-    public OrderLineRepository(DbConnectionFactory connectionFactory) : base(connectionFactory)
+    public OrderLineRepository(IDbConnectionFactory connectionFactory) : base(connectionFactory)
     {
     }
 

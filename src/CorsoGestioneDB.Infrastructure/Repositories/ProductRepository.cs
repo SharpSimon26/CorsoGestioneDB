@@ -8,7 +8,7 @@ namespace CorsoGestioneDB.Infrastructure.Repositories;
 
 public class ProductRepository : AbstractRepository, IProductRepository
 {
-    public ProductRepository(DbConnectionFactory connectionFactory) : base(connectionFactory)
+    public ProductRepository(IDbConnectionFactory connectionFactory) : base(connectionFactory)
     {
     }
 

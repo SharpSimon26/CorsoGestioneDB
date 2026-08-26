@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace CorsoGestioneDB.Infrastructure.Database;
 
-public class DbConnectionFactory
+public class DbConnectionFactory : IDbConnectionFactory
 {
     private readonly string _connectionString;
 

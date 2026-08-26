@@ -1,6 +1,8 @@
 <Solution>
+  <Folder Name="/src/" />
   <Folder Name="/tests/">
     <Project Path="tests/CorsoGestioneDB.Application.Tests/CorsoGestioneDB.Application.Tests.csproj" />
+    <Project Path="tests/CorsoGestioneDB.Infrastructure.Tests/CorsoGestioneDB.Infrastructure.Tests.csproj" />
   </Folder>
   <Project Path="src/CorsoGestioneDB.Abstractions/CorsoGestioneDB.Abstractions.csproj" />
   <Project Path="src/CorsoGestioneDB.Application/CorsoGestioneDB.Application.csproj" />

@@ -8,7 +8,7 @@ namespace CorsoGestioneDB.Infrastructure.Repositories;
 
 public class CityRepository : AbstractRepository, ICityRepository
 {
-    public CityRepository(DbConnectionFactory connectionFactory) : base(connectionFactory)
+    public CityRepository(IDbConnectionFactory connectionFactory) : base(connectionFactory)
     {
     }
 

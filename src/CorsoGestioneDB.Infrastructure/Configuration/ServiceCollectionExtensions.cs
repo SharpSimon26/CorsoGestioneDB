@@ -11,7 +11,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddInfrastructure(this IServiceCollection services)
     {
         // Registrazione dei repository che accedono al database
-        services.AddSingleton<DbConnectionFactory>();
+        services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<ICityRepository, CityRepository>();
         services.AddScoped<ICustomerRepository, CustomerRepository>();

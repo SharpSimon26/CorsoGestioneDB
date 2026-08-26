@@ -8,7 +8,7 @@ namespace CorsoGestioneDB.Infrastructure.Repositories;
 
 public class LocationInfoRepository : AbstractRepository, ILocationInfoRepository
 {
-    public LocationInfoRepository(DbConnectionFactory connectionFactory) : base(connectionFactory)
+    public LocationInfoRepository(IDbConnectionFactory connectionFactory) : base(connectionFactory)
     {
     }
 
