@@ -10,7 +10,7 @@ public class CachedOrderStatusRepository : OrderStatusRepository, ICachedOrderSt
 {
     private readonly ConcurrentDictionary<string, OrderStatus> _cache;
 
-    public CachedOrderStatusRepository(DbConnectionFactory connectionFactory) : base(connectionFactory)
+    public CachedOrderStatusRepository(IDbConnectionFactory connectionFactory) : base(connectionFactory)
     {
         _cache = new(StringComparer.OrdinalIgnoreCase);
     }
