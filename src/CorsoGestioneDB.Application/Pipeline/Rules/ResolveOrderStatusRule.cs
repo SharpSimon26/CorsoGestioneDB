@@ -1,5 +1,6 @@
 using CorsoGestioneDB.Abstractions.Interfaces;
 using CorsoGestioneDB.Application.Engine;
+using CorsoGestioneDB.Application.Models;
 using Microsoft.Extensions.Logging;
 
 namespace CorsoGestioneDB.Application.Pipeline.Rules;
@@ -34,6 +35,7 @@ public class ResolveOrderStatusRule : IResolutionRule
 
         if (status != null)
         {
+            context.AddModification(nameof(order.OrderStatusID), status.OrderStatusID, order.OrderStatusID, "Database lookup", Stage.RESOLVE);
             order.OrderStatusID = status.OrderStatusID;
         }
         else

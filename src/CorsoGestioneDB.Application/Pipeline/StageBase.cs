@@ -24,6 +24,11 @@ public abstract class StageBase : IStage
 
     public virtual void LogModifications(ImportContext context)
     {
+        foreach (var item in context.Issues)
+        {
+            logger.LogWarning("Ordine: '{0}' Campo: '{1}' Problema: {2}", context.RawOrder.OrderID, item.Field, item.Message);
+        }
+
         foreach (var item in context.Modifications)
         {
             logger.LogInformation("Ordine: '{0}' Campo: '{1}' Nuovo valore: '{2}' Valore originale: '{3}' Info: '{4}' Stage: '{5}'",

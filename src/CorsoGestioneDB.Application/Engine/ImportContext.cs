@@ -4,7 +4,7 @@ using CorsoGestioneDB.Domain.Entities;
 
 namespace CorsoGestioneDB.Application.Engine;
 
-[DebuggerDisplay("OrderID: {RawOrder.OrderID}, Status: {Status}, Messages: {Messages.Count}")]
+[DebuggerDisplay("OrderID: {RawOrder.OrderID}, Status: {Status}, Messages: {Messages.Count}, Modifications: {Modifications.Count}, Issues: {Issues.Count}")]
 public class ImportContext
 {
     public StagingOrder RawOrder { get; private set; }
