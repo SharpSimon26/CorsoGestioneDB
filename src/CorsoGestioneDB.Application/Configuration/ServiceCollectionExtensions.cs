@@ -1,6 +1,7 @@
 ﻿using CorsoGestioneDB.Application.Engine;
 using CorsoGestioneDB.Application.Pipeline;
 using CorsoGestioneDB.Application.Pipeline.Rules;
+using CorsoGestioneDB.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CorsoGestioneDB.Application.Configuration;
@@ -13,6 +14,9 @@ public static class ServiceCollectionExtensions
         services.AddScoped<ImportEngine>();
         services.AddScoped<ImportPipeline>();
 
+        // Servizi Applicazione
+        services.AddScoped<IProductCodeResolverService, ProductCodeResolverService>();
+
         // Regole di ricostruzione dei dati
         services.AddScoped<IReconstructionRule, ReconstructOrderStatusRule>();
         services.AddScoped<IReconstructionRule, ReconstructOrderDateRule>();
@@ -24,6 +28,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IReconstructionRule, ReconstructRoundingAdjustmentRule>();
 
         // Regole di risoluzione delle foreign key
+        services.AddScoped<IResolutionRule, ResolveProductCodeRule>();
         services.AddScoped<IResolutionRule, ResolveOrderStatusRule>();
 
         // Stadi della pipeline

@@ -1,7 +1,9 @@
-using System.Dynamic;
+using System.Diagnostics;
 
 namespace CorsoGestioneDB.Application.Models;
 
+
+[DebuggerDisplay("Field: {Field}, New Value: {NewValue}, Original Value: {OriginalValue}, Stage: {Stage}")]
 public class ImportModification
 {
     public string OrderID { get; private set; }

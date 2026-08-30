@@ -147,7 +147,7 @@ public class NormalizeStage : StageBase
     private void NormalizeProduct(ImportContext context)
     {
         // ProductCode
-        var productCode = TextHelper.Normalize(context.RawOrder.ProductCode);
+        var productCode = TextHelper.NormalizeUpper(context.RawOrder.ProductCode);
 
         if (productCode.Changed)
         {
@@ -155,7 +155,7 @@ public class NormalizeStage : StageBase
             context.RawOrder.ProductCode = productCode.Value;
         }
 
-        // ProductNamw
+        // ProductName
         var productName = TextHelper.Normalize(context.RawOrder.ProductName);
 
         if (productName.Changed)
