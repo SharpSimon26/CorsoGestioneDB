@@ -30,6 +30,7 @@ public static class ServiceCollectionExtensions
         // Regole di risoluzione delle foreign key
         services.AddScoped<IResolutionRule, ResolveProductCodeRule>();
         services.AddScoped<IResolutionRule, ResolveOrderStatusRule>();
+        services.AddScoped<IResolutionRule, ResolveCategoryIdRule>();
 
         // Stadi della pipeline
         services.AddScoped<NormalizeStage>();

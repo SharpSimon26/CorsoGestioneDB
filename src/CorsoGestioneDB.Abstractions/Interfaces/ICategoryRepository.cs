@@ -5,4 +5,5 @@ namespace CorsoGestioneDB.Abstractions.Interfaces;
 public interface ICategoryRepository
 {
     Task<IEnumerable<Category>> GetAllAsync();
+    Task<Category?> GetByNameAsync(string categoryName);
 }

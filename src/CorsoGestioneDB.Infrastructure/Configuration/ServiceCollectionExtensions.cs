@@ -13,6 +13,7 @@ public static class ServiceCollectionExtensions
         // Registrazione dei repository che accedono al database
         services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
         services.AddScoped<ICategoryRepository, CategoryRepository>();
+        services.AddScoped<ICachedCategoryRepository, CachedCategoryRepository>();
         services.AddScoped<ICityRepository, CityRepository>();
         services.AddScoped<ICustomerRepository, CustomerRepository>();
         services.AddScoped<ILocationInfoRepository, LocationInfoRepository>();
