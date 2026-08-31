@@ -1,22 +1,19 @@
 using CorsoGestioneDB.Abstractions.Interfaces;
 using CorsoGestioneDB.Application.Engine;
 using CorsoGestioneDB.Application.Models;
-using Microsoft.Extensions.Logging;
 
 namespace CorsoGestioneDB.Application.Pipeline.Rules;
 
 public class ResolveOrderStatusRule : IResolutionRule
 {
     private readonly ICachedOrderStatusRepository _orderStatusRepository;
-    private readonly ILogger<ResolveOrderStatusRule> _logger;
 
     /// <summary>
-    /// Regola di risoluzione applicata a OrderStatus
+    /// Regola di risoluzione applicata a OrderStatusID
     /// </summary>
-    public ResolveOrderStatusRule(ICachedOrderStatusRepository orderStatusRepository, ILogger<ResolveOrderStatusRule> logger)
+    public ResolveOrderStatusRule(ICachedOrderStatusRepository orderStatusRepository)
     {
         _orderStatusRepository = orderStatusRepository;
-        _logger = logger;
     }
 
     public bool CanApply(ImportContext context)
@@ -31,6 +28,7 @@ public class ResolveOrderStatusRule : IResolutionRule
     {
         var order = context.Data.Order;
 
+        // Recupera lo stato dell'ordine dal database
         var status = await _orderStatusRepository.GetByNameAsync(order.OrderStatus!);
 
         if (status != null)
