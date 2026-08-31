@@ -14,7 +14,8 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<ICachedCategoryRepository, CachedCategoryRepository>();
-        services.AddScoped<ICityRepository, CityRepository>();
+        services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();        
+        services.AddScoped<ISalesChannelRepository, SalesChannelRepository>();
         services.AddScoped<ICustomerRepository, CustomerRepository>();
         services.AddScoped<ILocationInfoRepository, LocationInfoRepository>();
         services.AddScoped<ICachedLocationInfoRepository, CachedLocationInfoRepository>();
@@ -22,10 +23,10 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IOrderLineRepository, OrderLineRepository>();
         services.AddScoped<IOrderStatusRepository, OrderStatusRepository>();
         services.AddScoped<ICachedOrderStatusRepository, CachedOrderStatusRepository>();
-        services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
-        services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<ICityRepository, CityRepository>();
         services.AddScoped<IProvinceRepository, ProvinceRepository>();
         services.AddScoped<IRegionRepository, RegionRepository>();
+        services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IStagingOrderRepository, StagingOrderRepository>();
 
         return services;
