@@ -12,12 +12,21 @@ public class PaymentMethodRepository : AbstractRepository, IPaymentMethodReposit
     {
     }
 
-    public async Task<IEnumerable<PaymentMethod>> GetAllAsync()
+    public virtual async Task<IEnumerable<PaymentMethod>> GetAllAsync()
     {
         using IDbConnection db = connectionFactory.CreateConnection();
         var sql = "select * from PaymentMethods order by PaymentMethodName";
         var paymentMethods = await db.QueryAsync<PaymentMethod>(sql);
 
         return paymentMethods;
+    }
+
+    public virtual async Task<PaymentMethod?> GetByNameAsync(string paymentMethodName)
+    {
+        using IDbConnection db = connectionFactory.CreateConnection();
+        var sql = "select * from PaymentMethods where PaymentMethodName = @paymentMethodName";
+        var paymentMethod = await db.QueryFirstOrDefaultAsync<PaymentMethod>(sql, new { paymentMethodName });
+
+        return paymentMethod;
     }
 }

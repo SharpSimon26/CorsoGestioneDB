@@ -1,41 +1,33 @@
 using System.Collections.Concurrent;
 using CorsoGestioneDB.Abstractions.Interfaces;
 using CorsoGestioneDB.Domain.Entities;
-using CorsoGestioneDB.Infrastructure.Database;
-using CorsoGestioneDB.Infrastructure.Repositories;
 
 namespace CorsoGestioneDB.Infrastructure.Cache;
 
-public class CachedCategoryRepository : CategoryRepository, ICachedCategoryRepository
+public class CachedCategoryRepository : ICachedCategoryRepository
 {
+    private readonly ICategoryRepository _categoryRepository;
     private readonly ConcurrentDictionary<string, Category> _cache;
 
-    public CachedCategoryRepository(IDbConnectionFactory connectionFactory) : base(connectionFactory)
+    public CachedCategoryRepository(ICategoryRepository categoryRepository)
     {
+        _categoryRepository = categoryRepository;
         _cache = new(StringComparer.OrdinalIgnoreCase);
     }
 
-    public override async Task<IEnumerable<Category>> GetAllAsync()
+    public async Task<IEnumerable<Category>> GetAllAsync()
     {
-        if (!_cache.Any())
-        {
-            await EnsureCacheLoadedAsync();
-        }
+        await EnsureCacheLoadedAsync();
 
         return _cache.Values.ToList();
     }
 
-    public override async Task<Category?> GetByNameAsync(string categoryName)
+    public async Task<Category?> GetByNameAsync(string categoryName)
     {
-        if (!_cache.Any())
-        {
-            await EnsureCacheLoadedAsync();
-        }
-
+        await EnsureCacheLoadedAsync();
         _cache.TryGetValue(categoryName, out var category);
         
         return category;
-
     }
 
     private async Task EnsureCacheLoadedAsync()
@@ -45,7 +37,7 @@ public class CachedCategoryRepository : CategoryRepository, ICachedCategoryRepos
             return;
         }
 
-        var categories = await base.GetAllAsync();
+        var categories = await _categoryRepository.GetAllAsync();
 
         foreach (var item in categories)
         {

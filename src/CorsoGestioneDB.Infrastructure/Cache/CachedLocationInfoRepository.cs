@@ -1,53 +1,47 @@
+using System.Collections.Concurrent;
 using CorsoGestioneDB.Abstractions.Interfaces;
 using CorsoGestioneDB.Domain.Models;
-using Microsoft.Extensions.Logging;
 
 namespace CorsoGestioneDB.Infrastructure.Cache;
 
 public class CachedLocationInfoRepository : ICachedLocationInfoRepository
 {
     private readonly ILocationInfoRepository _locationInfoRepository;
-    private readonly Dictionary<string, LocationInfo> _cache;
-    private readonly ILogger<CachedLocationInfoRepository> _logger;
+    private readonly ConcurrentDictionary<string, LocationInfo> _cache;
 
-    public CachedLocationInfoRepository(ILocationInfoRepository locationInfoRepository, ILogger<CachedLocationInfoRepository> logger)
+    public CachedLocationInfoRepository(ILocationInfoRepository locationInfoRepository)
     {
         _locationInfoRepository = locationInfoRepository;
         _cache = new(StringComparer.OrdinalIgnoreCase);
-        _logger = logger;
     }
 
     public async Task<IEnumerable<LocationInfo>> GetAllAsync()
     {
-        if (_cache.Any())
-        {
-            return _cache.Values.ToList();
-        }
+        await EnsureCacheLoadedAsync();
 
-        var locations = await _locationInfoRepository.GetAllAsync();
-
-        foreach (var location in locations)
-        {
-            _cache.TryAdd(location.CityName, location);
-        }
-        
-        return locations;
+        return _cache.Values.ToList();
     }
 
     public async Task<LocationInfo?> GetLocationInfoByCityNameAsync(string cityName)
     {
-        if (_cache.TryGetValue(cityName, out LocationInfo? locationInfo))
+        await EnsureCacheLoadedAsync();
+        _cache.TryGetValue(cityName, out LocationInfo? locationInfo);
+        
+        return locationInfo;
+    }
+
+    private async Task EnsureCacheLoadedAsync()
+    {
+        if (!_cache.IsEmpty)
         {
-            return locationInfo;
+            return;
         }
 
-        var location = await _locationInfoRepository.GetLocationInfoByCityNameAsync(cityName);
+        var locations = await _locationInfoRepository.GetAllAsync();
 
-        if (location != null)
+        foreach (var item in locations)
         {
-            _cache.TryAdd(location.CityName, location);
+            _cache.TryAdd(item.CityName, item);
         }
-
-        return location;
     }
 }

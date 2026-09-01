@@ -1,41 +1,33 @@
 using System.Collections.Concurrent;
 using CorsoGestioneDB.Abstractions.Interfaces;
 using CorsoGestioneDB.Domain.Entities;
-using CorsoGestioneDB.Infrastructure.Database;
-using CorsoGestioneDB.Infrastructure.Repositories;
 
 namespace CorsoGestioneDB.Infrastructure.Cache;
 
-public class CachedOrderStatusRepository : OrderStatusRepository, ICachedOrderStatusRepository
+public class CachedOrderStatusRepository : ICachedOrderStatusRepository
 {
+    private readonly IOrderStatusRepository _orderStatusRepository;
     private readonly ConcurrentDictionary<string, OrderStatus> _cache;
 
-    public CachedOrderStatusRepository(IDbConnectionFactory connectionFactory) : base(connectionFactory)
+    public CachedOrderStatusRepository(IOrderStatusRepository orderStatusRepository)
     {
+        _orderStatusRepository = orderStatusRepository;
         _cache = new(StringComparer.OrdinalIgnoreCase);
     }
 
-    public override async Task<IEnumerable<OrderStatus>> GetAllAsync()
+    public async Task<IEnumerable<OrderStatus>> GetAllAsync()
     {
-        if (!_cache.Any())
-        {
-            await EnsureCacheLoadedAsync();
-        }
+        await EnsureCacheLoadedAsync();
 
         return _cache.Values.ToList();
     }
 
-    public override async Task<OrderStatus?> GetByNameAsync(string orderStatusName)
+    public async Task<OrderStatus?> GetByNameAsync(string orderStatusName)
     {
-        if (!_cache.Any())
-        {
-            await EnsureCacheLoadedAsync();
-        }
-
+        await EnsureCacheLoadedAsync();
         _cache.TryGetValue(orderStatusName, out var orderStatus);
         
         return orderStatus;
-
     }
 
     private async Task EnsureCacheLoadedAsync()
@@ -45,7 +37,7 @@ public class CachedOrderStatusRepository : OrderStatusRepository, ICachedOrderSt
             return;
         }
 
-        var orderStatuses = await base.GetAllAsync();
+        var orderStatuses = await _orderStatusRepository.GetAllAsync();
 
         foreach (var item in orderStatuses)
         {
