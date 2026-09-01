@@ -1,7 +1,6 @@
 using CorsoGestioneDB.Application.Engine;
 using CorsoGestioneDB.Application.Pipeline.Rules;
 using CorsoGestioneDB.Domain.Entities;
-using Microsoft.Extensions.Logging.Abstractions;
 
 namespace CorsoGestioneDB.Application.Tests.Pipeline.Rules.OrderLine;
 
@@ -36,7 +35,7 @@ public class ReconstructRoundingAdjustmentRuleTests
         context.Data.OrderLine.ShippingCost = testCase.ShippingCost;
         context.Data.OrderLine.Revenue = testCase.Revenue;
 
-        var roundingAdjustmentRule = new ReconstructRoundingAdjustmentRule(NullLogger<ReconstructRoundingAdjustmentRule>.Instance);
+        var roundingAdjustmentRule = new ReconstructRoundingAdjustmentRule();
 
         Assert.True(roundingAdjustmentRule.CanApply(context));
 

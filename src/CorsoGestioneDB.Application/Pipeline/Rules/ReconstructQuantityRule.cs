@@ -1,20 +1,16 @@
 using CorsoGestioneDB.Application.Engine;
 using CorsoGestioneDB.Application.Models;
-using Microsoft.Extensions.Logging;
 
 namespace CorsoGestioneDB.Application.Pipeline.Rules;
 
 public class ReconstructQuantityRule : IReconstructionRule
 {
-    private readonly ILogger<ReconstructQuantityRule> _logger;
-
     /// <summary>
     /// Regola di ricostruzione applicata qualora gli altri dati appaiano coerenti
     /// ma la quantità sia minore o uguale a 0
     /// </summary>
-    public ReconstructQuantityRule(ILogger<ReconstructQuantityRule> logger)
+    public ReconstructQuantityRule()
     {
-        _logger = logger;
     }
 
     public bool CanApply(ImportContext context)

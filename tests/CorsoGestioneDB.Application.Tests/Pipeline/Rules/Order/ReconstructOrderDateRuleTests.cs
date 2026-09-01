@@ -1,6 +1,5 @@
 using CorsoGestioneDB.Application.Engine;
 using CorsoGestioneDB.Domain.Entities;
-using Microsoft.Extensions.Logging.Abstractions;
 
 namespace CorsoGestioneDB.Application.Pipeline.Rules.Order;
 
@@ -31,7 +30,7 @@ public class ReconstructOrderDateRuleTests
         context.Data.Order.OrderDate = testCase.OrderDate;
         context.Data.Order.DeliveryDate = testCase.DeliveryDate;
 
-        var reconstructOrderDateRule = new ReconstructOrderDateRule(NullLogger<ReconstructOrderDateRule>.Instance);
+        var reconstructOrderDateRule = new ReconstructOrderDateRule();
 
         var canApplyToContext = reconstructOrderDateRule.CanApply(context);
         Assert.Equal(testCase.ExpectedApply, canApplyToContext);

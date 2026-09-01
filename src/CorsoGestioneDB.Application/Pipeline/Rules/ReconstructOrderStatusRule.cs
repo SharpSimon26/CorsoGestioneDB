@@ -1,19 +1,15 @@
 using CorsoGestioneDB.Application.Engine;
 using CorsoGestioneDB.Application.Models;
-using Microsoft.Extensions.Logging;
 
 namespace CorsoGestioneDB.Application.Pipeline.Rules;
 
 public class ReconstructOrderStatusRule : IReconstructionRule
 {
-    private readonly ILogger<ReconstructOrderStatusRule> _logger;
-
     /// <summary>
     /// Regola di ricostruzione applicata a OrderStatus
     /// </summary>
-    public ReconstructOrderStatusRule(ILogger<ReconstructOrderStatusRule> logger)
+    public ReconstructOrderStatusRule()
     {
-        _logger = logger;
     }
 
     public bool CanApply(ImportContext context)

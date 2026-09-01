@@ -1,21 +1,17 @@
 using CorsoGestioneDB.Application.Engine;
 using CorsoGestioneDB.Application.Models;
-using Microsoft.Extensions.Logging;
 
 namespace CorsoGestioneDB.Application.Pipeline.Rules;
 
 public class ReconstructRoundingAdjustmentRule : IReconstructionRule
 {
-    private readonly ILogger<ReconstructRoundingAdjustmentRule> _logger;
-
     /// <summary>
     /// Regola applicata qualora tutti i dati sembrino validi ma ci sia un
     /// minimo scostamento tra Revenue e il dato calcolato. Gli altri record
     /// vengono scartati
     /// </summary>
-    public ReconstructRoundingAdjustmentRule(ILogger<ReconstructRoundingAdjustmentRule> logger)
+    public ReconstructRoundingAdjustmentRule()
     {
-        _logger = logger;
     }
 
     public bool CanApply(ImportContext context)

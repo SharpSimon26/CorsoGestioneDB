@@ -1,7 +1,6 @@
 using CorsoGestioneDB.Application.Engine;
 using CorsoGestioneDB.Application.Pipeline.Rules;
 using CorsoGestioneDB.Domain.Entities;
-using Microsoft.Extensions.Logging.Abstractions;
 
 namespace CorsoGestioneDB.Application.Tests.Pipeline.Rules.OrderLine;
 
@@ -39,7 +38,7 @@ public class ReconstructDiscountPctRuleTests
         context.Data.OrderLine.ShippingCost = shippingCost;
         context.Data.OrderLine.Revenue = revenue;
 
-        var reconstructDiscountPctRule = new ReconstructDiscountPctRule(NullLogger<ReconstructDiscountPctRule>.Instance);
+        var reconstructDiscountPctRule = new ReconstructDiscountPctRule();
 
         Assert.True(reconstructDiscountPctRule.CanApply(context));
 

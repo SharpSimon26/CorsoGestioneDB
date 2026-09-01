@@ -1,7 +1,6 @@
 using CorsoGestioneDB.Application.Engine;
 using CorsoGestioneDB.Application.Pipeline.Rules;
 using CorsoGestioneDB.Domain.Entities;
-using Microsoft.Extensions.Logging.Abstractions;
 
 namespace CorsoGestioneDB.Application.Tests.Pipeline.Rules.OrderLine;
 
@@ -36,7 +35,7 @@ public class ReconstructQuantityRuleTests
         context.Data.OrderLine.ShippingCost = shippingCost;
         context.Data.OrderLine.Revenue = revenue;
 
-        var reconstructQuantityRule = new ReconstructQuantityRule(NullLogger<ReconstructQuantityRule>.Instance);
+        var reconstructQuantityRule = new ReconstructQuantityRule();
 
         Assert.True(reconstructQuantityRule.CanApply(context));
 

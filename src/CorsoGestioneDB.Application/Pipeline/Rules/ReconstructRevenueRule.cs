@@ -1,20 +1,16 @@
 using CorsoGestioneDB.Application.Engine;
 using CorsoGestioneDB.Application.Models;
-using Microsoft.Extensions.Logging;
 
 namespace CorsoGestioneDB.Application.Pipeline.Rules;
 
 public class ReconstructRevenueRule : IReconstructionRule
 {
-    private readonly ILogger<ReconstructRevenueRule> _logger;
-
 /// <summary>
 /// Regola di ricostruzione applicata qualora gli altri dati appaiano coerenti
 /// ma Revenue sia minore o uguale a 0
 /// </summary>
-    public ReconstructRevenueRule(ILogger<ReconstructRevenueRule> logger)
+    public ReconstructRevenueRule()
     {
-        _logger = logger;
     }
 
     public bool CanApply(ImportContext context)
