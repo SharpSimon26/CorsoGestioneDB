@@ -87,4 +87,28 @@ public class OrderStatusRepositoryTests
         Assert.Equal(1, result.OrderStatusID);
         Assert.Equal("In lavorazione", result.OrderStatusName);
     }
+
+    [Fact]
+    public async Task GetByIdAsync_ShouldReturnNull_WhenNameDoesNotExist()
+    {
+        // Arrange
+        var mockFactory = new Mock<IDbConnectionFactory>();
+        var mockConnection = new Mock<IDbConnection>();
+
+        mockFactory.Setup(db => db.CreateConnection()).Returns(mockConnection.Object);
+
+        // Dapper restituisce null se non trova nulla
+        mockConnection.SetupDapperAsync(conn => conn.QueryFirstOrDefaultAsync<OrderStatus>(
+                It.IsAny<string>(), It.IsAny<object>(), null, null, null
+            ))
+            .ReturnsAsync((OrderStatus?)null);
+
+        var repository = new OrderStatusRepository(mockFactory.Object);
+
+        // Act
+        var result = await repository.GetByNameAsync("Inesistente"); // Nome inesistente
+
+        // Assert
+        Assert.Null(result);
+    }
 }
