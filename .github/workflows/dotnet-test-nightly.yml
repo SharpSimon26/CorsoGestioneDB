@@ -2,7 +2,7 @@ name: Esecuzione notturna Unit Test .NET 10
 
 on:
     schedule:
-        - cron: '30 3 * * *'
+        - cron: '30 0 * * *'
     workflow_dispatch: 
 
 jobs:
@@ -23,5 +23,11 @@ jobs:
             - name: Compila la soluzione
               run: dotnet build --configuration Release --no-restore
 
-            - name: Esegui i test
-              run: dotnet test --configuration Release --no-restore --no-build
+            - name: Esegui i test con Code Coverage
+              run: dotnet test --configuration Release --no-restore --no-build --collect:"XPlat Code Coverage" --results-directory ./TestResults
+
+            - name: Carica il report di Code Coverage
+              uses: actions/upload-artifact@v7
+              with:
+                name: code-coverage-report
+                path: './TestResults/*/*.xml'
