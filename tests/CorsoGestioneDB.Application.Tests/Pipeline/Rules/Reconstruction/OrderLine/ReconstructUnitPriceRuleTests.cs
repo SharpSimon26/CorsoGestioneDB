@@ -40,7 +40,7 @@ public class ReconstructUnitPriceRuleTests
 
         var reconstructUnitPriceRule = new ReconstructUnitPriceRule();
 
-        Assert.True(reconstructUnitPriceRule.CanApply(context));
+        Assert.True(await reconstructUnitPriceRule.CanApplyAsync(context));
 
         await reconstructUnitPriceRule.ApplyAsync(context);
 

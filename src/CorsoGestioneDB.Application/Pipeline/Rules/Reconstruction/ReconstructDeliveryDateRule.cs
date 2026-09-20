@@ -16,9 +16,10 @@ public class ReconstructDeliveryDateRule : IReconstructionRule
     {
     }
 
-    public bool CanApply(ImportContext context)
+    public async Task<bool> CanApplyAsync(ImportContext context)
     {
         var order = context.Data.Order;
+
         return order.OrderDate != null && order.DeliveryDate != null &&
                order.DeliveryDate < order.OrderDate;
     }
@@ -31,7 +32,7 @@ public class ReconstructDeliveryDateRule : IReconstructionRule
         var calculatedDeliveryDate = orderDate.AddDays(4);
 
         // Traccia della modifica
-        context.AddModification("DeliveryDate", calculatedDeliveryDate, order.DeliveryDate, GetType().Name, Stage.RECONSTRUCT);
+        context.AddModification(nameof(order.DeliveryDate), calculatedDeliveryDate, order.DeliveryDate, GetType().Name, Stage.RECONSTRUCT);
 
         // Dato verosimile
         order.DeliveryDate = calculatedDeliveryDate;

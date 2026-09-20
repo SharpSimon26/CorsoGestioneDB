@@ -43,7 +43,7 @@ public class ReconstructDeliveryDateRuleTests
 
         var reconstructDeliveryDateRule = new ReconstructDeliveryDateRule();
 
-        var canApplyToContext = reconstructDeliveryDateRule.CanApply(context);
+        var canApplyToContext = await reconstructDeliveryDateRule.CanApplyAsync(context);
         Assert.Equal(testCase.ExpectedApply, canApplyToContext);
 
         await reconstructDeliveryDateRule.ApplyAsync(context);

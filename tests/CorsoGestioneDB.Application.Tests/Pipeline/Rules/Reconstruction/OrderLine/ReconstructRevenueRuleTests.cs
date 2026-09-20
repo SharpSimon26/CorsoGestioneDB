@@ -37,7 +37,7 @@ public class ReconstructRevenueRuleTests
 
         var reconstructRevenueRule = new ReconstructRevenueRule();
 
-        Assert.True(reconstructRevenueRule.CanApply(context));
+        Assert.True(await reconstructRevenueRule.CanApplyAsync(context));
 
         await reconstructRevenueRule.ApplyAsync(context);
 

@@ -16,7 +16,7 @@ public class ReconstructOrderDateRule : IReconstructionRule
     {
     }
 
-    public bool CanApply(ImportContext context)
+    public async Task<bool> CanApplyAsync(ImportContext context)
     {
         var order = context.Data.Order;
 
@@ -31,7 +31,7 @@ public class ReconstructOrderDateRule : IReconstructionRule
         var calculatedOrderDate = deliveryDate.Subtract(TimeSpan.FromDays(4));
 
         // Traccia della modifica
-        context.AddModification("OrderDate", calculatedOrderDate, order.OrderDate, GetType().Name, Stage.RECONSTRUCT);
+        context.AddModification(nameof(order.OrderDate), calculatedOrderDate, order.OrderDate, GetType().Name, Stage.RECONSTRUCT);
 
         // Dato verosimile
         order.OrderDate = calculatedOrderDate;

@@ -17,6 +17,7 @@ public static class ServiceCollectionExtensions
 
         // Servizi Applicazione
         services.AddScoped<IProductCodeResolverService, ProductCodeResolverService>();
+        services.AddScoped<ILocationReconstructorService, LocationReconstructorService>();
 
         // Regole di ricostruzione dei dati
         services.AddScoped<IReconstructionRule, ReconstructOrderStatusRule>();
@@ -27,11 +28,13 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IReconstructionRule, ReconstructDiscountPctRule>();
         services.AddScoped<IReconstructionRule, ReconstructRevenueRule>();
         services.AddScoped<IReconstructionRule, ReconstructRoundingAdjustmentRule>();
+        services.AddScoped<IReconstructionRule, ReconstructLocationRule>();
 
         // Regole di risoluzione delle foreign key
         services.AddScoped<IResolutionRule, ResolveProductCodeRule>();
         services.AddScoped<IResolutionRule, ResolveOrderStatusRule>();
         services.AddScoped<IResolutionRule, ResolveCategoryIdRule>();
+        services.AddScoped<IResolutionRule, ResolveLocationRule>();
 
         // Stadi della pipeline
         services.AddScoped<NormalizeStage>();

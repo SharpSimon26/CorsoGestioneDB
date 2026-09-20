@@ -55,7 +55,7 @@ public class ReconstructOrderStatusRuleTests
 
         var reconstructOrderStatusRule = new ReconstructOrderStatusRule();
 
-        var canApplyToContext = reconstructOrderStatusRule.CanApply(context);
+        var canApplyToContext = await reconstructOrderStatusRule.CanApplyAsync(context);
         Assert.Equal(testCase.ExpectedApply, canApplyToContext);
 
         await reconstructOrderStatusRule.ApplyAsync(context);

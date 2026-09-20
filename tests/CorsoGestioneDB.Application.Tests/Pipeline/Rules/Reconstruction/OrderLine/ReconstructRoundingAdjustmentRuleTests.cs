@@ -37,7 +37,7 @@ public class ReconstructRoundingAdjustmentRuleTests
 
         var roundingAdjustmentRule = new ReconstructRoundingAdjustmentRule();
 
-        Assert.True(roundingAdjustmentRule.CanApply(context));
+        Assert.True(await roundingAdjustmentRule.CanApplyAsync(context));
 
         await roundingAdjustmentRule.ApplyAsync(context);
 

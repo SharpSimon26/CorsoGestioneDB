@@ -12,7 +12,7 @@ public class ReconstructOrderStatusRule : IReconstructionRule
     {
     }
 
-    public bool CanApply(ImportContext context)
+    public async Task<bool> CanApplyAsync(ImportContext context)
     {
         var order = context.Data.Order;
 
@@ -42,7 +42,7 @@ public class ReconstructOrderStatusRule : IReconstructionRule
         }
 
         // Traccia della modifica
-        context.AddModification("OrderStatus", calculatedOrderStatus, order.OrderStatus, GetType().Name, Stage.RECONSTRUCT);
+        context.AddModification(nameof(order.OrderStatus), calculatedOrderStatus, order.OrderStatus, GetType().Name, Stage.RECONSTRUCT);
 
         // Dato corretto
         order.OrderStatus = calculatedOrderStatus;        

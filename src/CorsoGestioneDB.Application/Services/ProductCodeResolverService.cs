@@ -17,11 +17,7 @@ public class ProductCodeResolverService : IProductCodeResolverService
 
     public async Task<StagingOrderProductInfo?> ResolveProductCode(string productName)
     {
-        if (!_cache.Any())
-        {
-            await EnsureCacheLoadedAsync();
-        }
-
+        await EnsureCacheLoadedAsync();
         _cache.TryGetValue(productName, out var productInfo);
 
         return productInfo;

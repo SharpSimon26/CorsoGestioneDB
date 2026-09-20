@@ -19,9 +19,12 @@ public class ReconstructStage : StageBase
         foreach (var context in contexts.Where(x => x.IsProcessable()))
         {
             // Ciclo per tutte le regole applicabili alla riga
-            foreach (var rule in _rules.Where(r => r.CanApply(context)))
+            foreach (var rule in _rules)
             {
-                await rule.ApplyAsync(context);
+                if (await rule.CanApplyAsync(context))
+                {
+                    await rule.ApplyAsync(context);
+                }
             }
         }
     }

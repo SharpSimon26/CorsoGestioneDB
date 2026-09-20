@@ -71,4 +71,55 @@ public class StagingOrderRepository : AbstractRepository,  IStagingOrderReposito
 
         return productInfos;
     }
+
+    public async Task<IEnumerable<StagingOrderLocationInfo>> GetLocationInfoAsync()
+    {
+        using IDbConnection db = connectionFactory.CreateConnection();
+        var sql = @"
+            with CustomerLocations as (
+                select 
+                    UPPER(LEFT(City, 1))+SUBSTRING(City, 2) City,
+                    UPPER(LEFT(Province, 1))+SUBSTRING(Province, 2) Province,
+                    UPPER(LEFT(Region, 1))+SUBSTRING(Region, 2) Region,
+                    count(*) NumOrders
+                from StagingOrders
+                where City is not null 
+                    and Province is not null 
+                    and Region is not null
+                    and Region != 'N/D'
+                group by City, Province, Region
+            ),
+            CustomerLocationUsage as (
+                select 
+                    City,
+                    Province,
+                    Region,
+                    NumOrders,
+                    CAST(100.0 * NumOrders / SUM(NumOrders) OVER (PARTITION BY City) AS DECIMAL(6,3)) as UsagePercentage
+                from CustomerLocations
+            ),
+            CustomerLocationRowNum as (
+                select
+                    City,
+                    Province,
+                    Region,
+                    NumOrders,
+                    UsagePercentage,
+                    ROW_NUMBER() OVER (PARTITION BY City ORDER BY UsagePercentage DESC) as RowNumber
+                from CustomerLocationUsage
+            )
+            select 
+                City,
+                Province,
+                Region,
+                NumOrders,
+                UsagePercentage
+            from CustomerLocationRowNum
+            where RowNumber = 1
+            order by City";
+        
+        var locationInfos = await db.QueryAsync<StagingOrderLocationInfo>(sql);
+
+        return locationInfos;
+    }
 }

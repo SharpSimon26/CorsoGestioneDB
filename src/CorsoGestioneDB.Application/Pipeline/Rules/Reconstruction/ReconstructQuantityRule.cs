@@ -13,7 +13,7 @@ public class ReconstructQuantityRule : IReconstructionRule
     {
     }
 
-    public bool CanApply(ImportContext context)
+    public async Task<bool> CanApplyAsync(ImportContext context)
     {
         var line = context.Data.OrderLine;
 
@@ -41,7 +41,7 @@ public class ReconstructQuantityRule : IReconstructionRule
         );
 
         // Traccia della modifica
-        context.AddModification("Quantity", calculatedQuantity, line.Quantity, GetType().Name, Stage.RECONSTRUCT);
+        context.AddModification(nameof(line.Quantity), calculatedQuantity, line.Quantity, GetType().Name, Stage.RECONSTRUCT);
 
         // Dato corretto
         line.Quantity = calculatedQuantity;

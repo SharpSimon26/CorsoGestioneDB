@@ -40,7 +40,7 @@ public class ReconstructDiscountPctRuleTests
 
         var reconstructDiscountPctRule = new ReconstructDiscountPctRule();
 
-        Assert.True(reconstructDiscountPctRule.CanApply(context));
+        Assert.True(await reconstructDiscountPctRule.CanApplyAsync(context));
 
         await reconstructDiscountPctRule.ApplyAsync(context);
 

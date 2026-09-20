@@ -37,7 +37,7 @@ public class ReconstructQuantityRuleTests
 
         var reconstructQuantityRule = new ReconstructQuantityRule();
 
-        Assert.True(reconstructQuantityRule.CanApply(context));
+        Assert.True(await reconstructQuantityRule.CanApplyAsync(context));
 
         await reconstructQuantityRule.ApplyAsync(context);
 

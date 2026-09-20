@@ -33,7 +33,7 @@ public class ReconstructOrderDateRuleTests
 
         var reconstructOrderDateRule = new ReconstructOrderDateRule();
 
-        var canApplyToContext = reconstructOrderDateRule.CanApply(context);
+        var canApplyToContext = await reconstructOrderDateRule.CanApplyAsync(context);
         Assert.Equal(testCase.ExpectedApply, canApplyToContext);
 
         await reconstructOrderDateRule.ApplyAsync(context);

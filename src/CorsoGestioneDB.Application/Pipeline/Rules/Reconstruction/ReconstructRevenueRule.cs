@@ -13,7 +13,7 @@ public class ReconstructRevenueRule : IReconstructionRule
     {
     }
 
-    public bool CanApply(ImportContext context)
+    public async Task<bool> CanApplyAsync(ImportContext context)
     {
         var line = context.Data.OrderLine;
 

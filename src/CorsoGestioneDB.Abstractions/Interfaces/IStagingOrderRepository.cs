@@ -7,4 +7,5 @@ public interface IStagingOrderRepository
 {
     Task<IEnumerable<StagingOrder>> GetAllAsync();
     Task<IEnumerable<StagingOrderProductInfo>> GetProductInfoAsync();
+    Task<IEnumerable<StagingOrderLocationInfo>> GetLocationInfoAsync();
 }
