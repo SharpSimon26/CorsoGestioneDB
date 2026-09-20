@@ -1,7 +1,7 @@
 using CorsoGestioneDB.Application.Engine;
 using CorsoGestioneDB.Application.Services;
 
-namespace CorsoGestioneDB.Application.Pipeline.Rules;
+namespace CorsoGestioneDB.Application.Pipeline.Rules.Resolution;
 
 public class ResolveProductCodeRule : IResolutionRule
 {

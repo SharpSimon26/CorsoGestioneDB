@@ -2,7 +2,7 @@ using CorsoGestioneDB.Application.Engine;
 using CorsoGestioneDB.Application.Models;
 using Microsoft.Extensions.Logging;
 
-namespace CorsoGestioneDB.Application.Pipeline.Rules;
+namespace CorsoGestioneDB.Application.Pipeline.Rules.Reconstruction;
 
 public class ReconstructOrderDateRule : IReconstructionRule
 {

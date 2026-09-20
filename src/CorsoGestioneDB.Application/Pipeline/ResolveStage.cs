@@ -1,5 +1,5 @@
 using CorsoGestioneDB.Application.Engine;
-using CorsoGestioneDB.Application.Pipeline.Rules;
+using CorsoGestioneDB.Application.Pipeline.Rules.Resolution;
 using Microsoft.Extensions.Logging;
 
 namespace CorsoGestioneDB.Application.Pipeline;

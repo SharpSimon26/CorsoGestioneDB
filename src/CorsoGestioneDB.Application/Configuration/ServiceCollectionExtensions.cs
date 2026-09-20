@@ -1,6 +1,7 @@
 ﻿using CorsoGestioneDB.Application.Engine;
 using CorsoGestioneDB.Application.Pipeline;
-using CorsoGestioneDB.Application.Pipeline.Rules;
+using CorsoGestioneDB.Application.Pipeline.Rules.Reconstruction;
+using CorsoGestioneDB.Application.Pipeline.Rules.Resolution;
 using CorsoGestioneDB.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
 

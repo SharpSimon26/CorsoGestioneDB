@@ -1,8 +1,8 @@
 using CorsoGestioneDB.Application.Engine;
-using CorsoGestioneDB.Application.Pipeline.Rules;
+using CorsoGestioneDB.Application.Pipeline.Rules.Reconstruction;
 using CorsoGestioneDB.Domain.Entities;
 
-namespace CorsoGestioneDB.Application.Tests.Pipeline.Rules.OrderLine;
+namespace CorsoGestioneDB.Application.Tests.Pipeline.Rules.Reconstruction.OrderLine;
 
 public class ReconstructRevenueRuleTests
 {

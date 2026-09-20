@@ -1,7 +1,8 @@
 using CorsoGestioneDB.Application.Engine;
+using CorsoGestioneDB.Application.Pipeline.Rules.Reconstruction;
 using CorsoGestioneDB.Domain.Entities;
 
-namespace CorsoGestioneDB.Application.Pipeline.Rules.Order;
+namespace CorsoGestioneDB.Application.Tests.Pipeline.Rules.Reconstruction.Order;
 
 public class ReconstructDeliveryDateRuleTests
 {

@@ -2,7 +2,7 @@ using CorsoGestioneDB.Abstractions.Interfaces;
 using CorsoGestioneDB.Application.Engine;
 using CorsoGestioneDB.Application.Models;
 
-namespace CorsoGestioneDB.Application.Pipeline.Rules;
+namespace CorsoGestioneDB.Application.Pipeline.Rules.Resolution;
 
 public class ResolveCategoryIdRule : IResolutionRule
 {

@@ -1,7 +1,7 @@
 using CorsoGestioneDB.Application.Engine;
 using CorsoGestioneDB.Application.Models;
 
-namespace CorsoGestioneDB.Application.Pipeline.Rules;
+namespace CorsoGestioneDB.Application.Pipeline.Rules.Reconstruction;
 
 public class ReconstructOrderStatusRule : IReconstructionRule
 {

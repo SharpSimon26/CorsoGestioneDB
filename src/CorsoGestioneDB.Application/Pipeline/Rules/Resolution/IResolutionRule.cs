@@ -1,6 +1,6 @@
 using CorsoGestioneDB.Application.Engine;
 
-namespace CorsoGestioneDB.Application.Pipeline.Rules;
+namespace CorsoGestioneDB.Application.Pipeline.Rules.Resolution;
 
 public interface IResolutionRule
 {
