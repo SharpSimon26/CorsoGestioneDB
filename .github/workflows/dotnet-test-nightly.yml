@@ -26,11 +26,12 @@ jobs:
             - name: Esegui i test con Code Coverage
               run: dotnet test --configuration Release --no-restore --no-build --collect:"XPlat Code Coverage" --results-directory ./TestResults
 
-            - name: Installa ReportGenerator
-              run: dotnet tool install -g dotnet-reportgenerator-globaltool
-
-            - name: Genera report Code Coverage Markdown
-              run: reportgenerator -reports:./TestResults/**/coverage.cobertura.xml -targetdir:./CoverageReport" -reporttypes:Markdown
+            - name: ReportGenerator
+              uses: danielpalme/ReportGenerator-GitHub-Action@v5.5.11
+              with:
+                reports: './TestResults/**/coverage.cobertura.xml'
+                targetdir: './CoverageReport'
+                reporttypes: 'MarkdownSummary;HTMLInline'
 
             - name: Pubblica Code Coverage nel Summary
               run: cat ./CoverageReport/Summary.md >> "$GITHUB_STEP_SUMMARY"
