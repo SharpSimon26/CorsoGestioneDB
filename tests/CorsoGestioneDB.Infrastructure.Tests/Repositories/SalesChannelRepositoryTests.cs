@@ -8,85 +8,84 @@ using Moq.Dapper;
 
 namespace CorsoGestioneDB.Infrastructure.Tests.Repositories;
 
-public class OrderStatusRepositoryTests
+public class SalesChannelRepositoryTests
 {
     [Fact]
-    public async Task GetAllAsync_Returns_List_Of_OrderStatus()
+    public async Task GetAllAsync_Returns_List_Of_SalesChannel()
     {
         // 1. Arrange
         var mockFactory = new Mock<IDbConnectionFactory>();
         var mockConnection = new Mock<IDbConnection>();
 
-        var expectedOrderStatuses = new List<OrderStatus>
+        var expectedSalesChannels = new List<SalesChannel>
         {
-            new() { OrderStatusID = 1, OrderStatusName = "In lavorazione" },
-            new() { OrderStatusID = 2, OrderStatusName = "Spedito" },
-            new() { OrderStatusID = 3, OrderStatusName = "Consegnato" },
-            new() { OrderStatusID = 4, OrderStatusName = "Reso" },
-            new() { OrderStatusID = 5, OrderStatusName = "Annullato" }
+            new() { SalesChannelID = 1, SalesChannelName = "E-commerce" },
+            new() { SalesChannelID = 2, SalesChannelName = "Marketplace" },
+            new() { SalesChannelID = 3, SalesChannelName = "Negozio" },
+            new() { SalesChannelID = 4, SalesChannelName = "Telefono" },
         };
-
+    
         // Imposta il mock per restituire la connessione mockata
         mockFactory.Setup(db => db.CreateConnection()).Returns(mockConnection.Object);
 
         // Imposta Moq.Dapper per intercettare la query
-        mockConnection.SetupDapperAsync(conn => conn.QueryAsync<OrderStatus>(
+        mockConnection.SetupDapperAsync(conn => conn.QueryAsync<SalesChannel>(
                 It.IsAny<string>(), It.IsAny<object>(), null, null, null
             ))
-            .ReturnsAsync(expectedOrderStatuses);
+            .ReturnsAsync(expectedSalesChannels);
 
-        var repository = new OrderStatusRepository(mockFactory.Object);
+        var repository = new SalesChannelRepository(mockFactory.Object);
 
         // 2. Act
         var result = await repository.GetAllAsync();
-
+    
         // 3. Assert
         Assert.NotNull(result);
         Assert.NotEmpty(result);
-        Assert.Equal(5, result.Count());
+        Assert.Equal(4, result.Count());
 
         // Controlla che nessun elemento sia null e che gli ID siano validi
         Assert.All(result, item => 
         {
             Assert.NotNull(item);
-            Assert.True(item.OrderStatusID > 0);
-            Assert.False(string.IsNullOrWhiteSpace(item.OrderStatusName));
+            Assert.True(item.SalesChannelID > 0);
+            Assert.False(string.IsNullOrWhiteSpace(item.SalesChannelName));
         });
 
         // Verifica elementi specifici
-        Assert.Equal("In lavorazione", result.First().OrderStatusName);
-        Assert.Equal("Annullato", result.Last().OrderStatusName);
+        Assert.Equal("E-commerce", result.First().SalesChannelName);
+        Assert.Equal("Telefono", result.Last().SalesChannelName);
 
         // Verifica che la connessione al DB sia stata invocata esattamente 1 volta
         mockFactory.Verify(db => db.CreateConnection(), Times.Once);
     }
 
     [Fact]
-    public async Task GetByIdAsync_ShouldReturn_OrderStatus_WhenIdExists()
+    public async Task GetByIdAsync_ShouldReturn_SalesChannel_WhenIdExists()
     {
         // Arrange
         var mockFactory = new Mock<IDbConnectionFactory>();
         var mockConnection = new Mock<IDbConnection>();
 
-        var expectedStatus = new OrderStatus { OrderStatusID = 1, OrderStatusName = "In lavorazione" };
+        var expectedChannel = new SalesChannel { SalesChannelID = 4, SalesChannelName = "Telefono" };
 
         mockFactory.Setup(db => db.CreateConnection()).Returns(mockConnection.Object);
 
         // Mockiamo la risposta per una singola istanza
-        mockConnection.SetupDapperAsync(conn => conn.QueryFirstOrDefaultAsync<OrderStatus>(
+        mockConnection.SetupDapperAsync(conn => conn.QueryFirstOrDefaultAsync<SalesChannel>(
                 It.IsAny<string>(), It.IsAny<object>(), null, null, null
             ))
-            .ReturnsAsync(expectedStatus);
+            .ReturnsAsync(expectedChannel);
 
-        var repository = new OrderStatusRepository(mockFactory.Object);
+        var repository = new SalesChannelRepository(mockFactory.Object);
 
         // Act
-        var result = await repository.GetByNameAsync("In lavotazione");
+        var result = await repository.GetByNameAsync("Telefono");
 
         // Assert
         Assert.NotNull(result);
-        Assert.Equal(1, result.OrderStatusID);
-        Assert.Equal("In lavorazione", result.OrderStatusName);
+        Assert.Equal(4, result.SalesChannelID);
+        Assert.Equal("Telefono", result.SalesChannelName);
     }
 
     [Fact]
@@ -99,12 +98,12 @@ public class OrderStatusRepositoryTests
         mockFactory.Setup(db => db.CreateConnection()).Returns(mockConnection.Object);
 
         // Dapper restituisce null se non trova nulla
-        mockConnection.SetupDapperAsync(conn => conn.QueryFirstOrDefaultAsync<OrderStatus>(
+        mockConnection.SetupDapperAsync(conn => conn.QueryFirstOrDefaultAsync<SalesChannel>(
                 It.IsAny<string>(), It.IsAny<object>(), null, null, null
             ))
-            .ReturnsAsync((OrderStatus?)null);
+            .ReturnsAsync((SalesChannel?)null);
 
-        var repository = new OrderStatusRepository(mockFactory.Object);
+        var repository = new SalesChannelRepository(mockFactory.Object);
 
         // Act
         var result = await repository.GetByNameAsync("Inesistente"); // Nome inesistente
