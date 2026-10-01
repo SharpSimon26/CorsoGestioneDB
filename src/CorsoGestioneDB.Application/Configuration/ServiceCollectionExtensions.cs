@@ -35,6 +35,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IResolutionRule, ResolveOrderStatusRule>();
         services.AddScoped<IResolutionRule, ResolveCategoryIdRule>();
         services.AddScoped<IResolutionRule, ResolveLocationRule>();
+        services.AddScoped<IResolutionRule, ResolveSalesChannelRule>();
 
         // Stadi della pipeline
         services.AddScoped<NormalizeStage>();

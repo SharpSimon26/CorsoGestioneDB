@@ -12,21 +12,35 @@ public static class ServiceCollectionExtensions
     {
         // Registrazione dei repository che accedono al database
         services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
+
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<ICachedCategoryRepository, CachedCategoryRepository>();
-        services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();        
+
+        services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
+
         services.AddScoped<ISalesChannelRepository, SalesChannelRepository>();
+        services.AddScoped<ICachedSalesChannelRepository, CachedSalesChannelRepository>();
+
         services.AddScoped<ICustomerRepository, CustomerRepository>();
+
         services.AddScoped<ILocationInfoRepository, LocationInfoRepository>();
         services.AddScoped<ICachedLocationInfoRepository, CachedLocationInfoRepository>();
+
         services.AddScoped<IOrderRepository, OrderRepository>();
+
         services.AddScoped<IOrderLineRepository, OrderLineRepository>();
+
         services.AddScoped<IOrderStatusRepository, OrderStatusRepository>();
         services.AddScoped<ICachedOrderStatusRepository, CachedOrderStatusRepository>();
+
         services.AddScoped<ICityRepository, CityRepository>();
+
         services.AddScoped<IProvinceRepository, ProvinceRepository>();
+
         services.AddScoped<IRegionRepository, RegionRepository>();
+
         services.AddScoped<IProductRepository, ProductRepository>();
+
         services.AddScoped<IStagingOrderRepository, StagingOrderRepository>();
 
         return services;
