@@ -17,6 +17,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<ICachedCategoryRepository, CachedCategoryRepository>();
 
         services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
+        services.AddScoped<ICachedPaymentMethodRepository, CachedPaymentMethodRepository>();
 
         services.AddScoped<ISalesChannelRepository, SalesChannelRepository>();
         services.AddScoped<ICachedSalesChannelRepository, CachedSalesChannelRepository>();

@@ -37,9 +37,9 @@ public class CachedPaymentMethodRepository : ICachedPaymentMethodRepository
             return;
         }
 
-        var orderStatuses = await _paymentMethodRepository.GetAllAsync();
+        var paymentMethods = await _paymentMethodRepository.GetAllAsync();
 
-        foreach (var item in orderStatuses)
+        foreach (var item in paymentMethods)
         {
             _cache.TryAdd(item.PaymentMethodName, item);
         }
