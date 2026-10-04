@@ -13,7 +13,7 @@ public class CityRepositoryTests
     [Fact]
     public async Task GetAllAsync_ShouldReturn_ListOfCity()
     {
-        // Arrance
+        // Arrange
         var mockFactory = new Mock<IDbConnectionFactory>();
         var mockConnection = new Mock<IDbConnection>();
 
