@@ -28,7 +28,7 @@ public class ResolvePaymentMethodRule : IResolutionRule
     {
         var order = context.Data.Order;
 
-        // Recupera lo stato dell'ordine dal database
+        // Recupera il metodo di pagamento dal database
         var method = await _paymentMethodRepository.GetByNameAsync(order.PaymentMethod!);
 
         if (method != null)
