@@ -60,7 +60,7 @@ public class ResolvePaymentMethodRuleTests
     }
 
     [Fact]
-    public async Task ApplyAsync_SetsPaymentMethodId_WhenMethodIsFound()
+    public async Task ApplyAsync_SetsPaymentMethodId_When_Id_IsFound()
     {
         // Arrange
         var context = CreateContext(paymentMethod: "PayPal", paymentMethodId: null);
