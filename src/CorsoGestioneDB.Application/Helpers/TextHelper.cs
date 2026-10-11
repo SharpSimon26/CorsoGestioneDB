@@ -18,25 +18,21 @@ public static class TextHelper
 
     public static NormalizeResult<string?> NormalizeUpper(string? value)
     {
-        var trimmedValue = Normalize(value).Value;
-
-        if (trimmedValue != null)
+        if (!string.IsNullOrWhiteSpace(value))
         {
-            return new NormalizeResult<string?>(value, trimmedValue.ToUpperInvariant());
+            return new NormalizeResult<string?>(value, value.Trim().ToUpperInvariant());
         }
         else
         {
-            return new NormalizeResult<string?>(trimmedValue, null);
+            return new NormalizeResult<string?>(value, null);
         }
     }
 
     public static NormalizeResult<string?> NormalizeLower(string? value)
     {
-        var trimmedValue = Normalize(value).Value;
-
-        if (trimmedValue != null)
+        if (!string.IsNullOrWhiteSpace(value))
         {
-            return new NormalizeResult<string?>(value, trimmedValue.ToLowerInvariant());
+            return new NormalizeResult<string?>(value, value.Trim().ToLowerInvariant());
         }
         else
         {
@@ -46,10 +42,9 @@ public static class TextHelper
 
     public static NormalizeResult<string?> NormalizeCapitalizeFirst(string? value)
     {
-        var trimmedValue = Normalize(value).Value;
-
-        if (trimmedValue != null)
+        if (!string.IsNullOrWhiteSpace(value))
         {
+            var trimmedValue = value.Trim();
             string ucValue = char.ToUpper(trimmedValue[0]) + trimmedValue.Substring(1).ToLower();
 
             return new NormalizeResult<string?>(value, ucValue);  
