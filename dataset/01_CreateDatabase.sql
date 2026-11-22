@@ -1,0 +1,2 @@
+CREATE DATABASE CorsoGestioneDB
+COLLATE Latin1_General_CI_AS_SC;
