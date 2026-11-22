@@ -7,7 +7,7 @@ public class ReconstructDiscountPctRule : IReconstructionRule
 {
     /// <summary>
     /// Regola di ricostruzione applicata qualora gli altri dati appaiano coerenti 
-    /// ma la percentuale di sconto sia minore di 0 o maggiore di 99
+    /// ma la percentuale di sconto sia minore di 0 o maggiore di 100
     /// </summary>
     public ReconstructDiscountPctRule()
     {
@@ -19,7 +19,7 @@ public class ReconstructDiscountPctRule : IReconstructionRule
 
         return line.Quantity.HasValue && line.Quantity > 0 &&
                line.UnitPrice.HasValue && line.UnitPrice > 0 &&
-               (line.DiscountPct == null || line.DiscountPct < 0 || line.DiscountPct > 99) &&
+               (line.DiscountPct == null || line.DiscountPct < 0 || line.DiscountPct > 100) &&
                line.ShippingCost.HasValue && line.ShippingCost >= 0 &&
                line.Revenue.HasValue && line.Revenue > 0;        
     }
