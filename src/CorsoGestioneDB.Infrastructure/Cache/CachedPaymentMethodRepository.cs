@@ -30,6 +30,25 @@ public class CachedPaymentMethodRepository : ICachedPaymentMethodRepository
         return paymentMethod;
     }
 
+    public async Task<PaymentMethod?> GetBestMatchByNameAsync(string paymentMethodName, int minimumSimilarity = 80, int minimumGap = 10)
+    {
+        await EnsureCacheLoadedAsync();
+        _cache.TryGetValue(paymentMethodName, out var paymentMethod);
+
+        if (paymentMethod == null)
+        {
+            var paymentMethodMatch = await _paymentMethodRepository.GetBestMatchByNameAsync(paymentMethodName);
+
+            if (paymentMethodMatch != null)
+            {
+                _cache.TryAdd(paymentMethodName, paymentMethodMatch);
+                paymentMethod = paymentMethodMatch;
+            }
+        }
+
+        return paymentMethod;
+    }    
+
     private async Task EnsureCacheLoadedAsync()
     {
         if (!_cache.IsEmpty)

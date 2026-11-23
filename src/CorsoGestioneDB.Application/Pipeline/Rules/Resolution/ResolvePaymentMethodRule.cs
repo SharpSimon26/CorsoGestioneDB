@@ -27,18 +27,21 @@ public class ResolvePaymentMethodRule : IResolutionRule
     public async Task ApplyAsync(ImportContext context)
     {
         var order = context.Data.Order;
+        var paymentMethodName = order.PaymentMethod!;
 
-        // Recupera il metodo di pagamento dal database
-        var method = await _paymentMethodRepository.GetByNameAsync(order.PaymentMethod!);
+        // Tentativo di risoluzione esatta
+        var paymentMethod = await _paymentMethodRepository.GetByNameAsync(paymentMethodName);
 
-        if (method != null)
+        // Tentativo di risoluzione approssimata
+        paymentMethod ??= await _paymentMethodRepository.GetBestMatchByNameAsync(paymentMethodName);
+
+        if (paymentMethod == null)
         {
-            context.AddModification(nameof(order.PaymentMethodID), method.PaymentMethodID, order.PaymentMethodID, "Database lookup", Stage.RESOLVE);
-            order.PaymentMethodID = method.PaymentMethodID;
+            context.AddIssue(nameof(order.PaymentMethod), $"Metodo di pagamento '{order.PaymentMethod}' non riconosciuto.");
+            return;
         }
-        else
-        {
-            context.AddIssue(nameof(order.PaymentMethod), $"Stato '{order.PaymentMethod}' non trovato.");
-        }
+
+        context.AddModification(nameof(order.PaymentMethodID), paymentMethod.PaymentMethodID, order.PaymentMethodID, "Database lookup", Stage.RESOLVE);
+        order.PaymentMethodID = paymentMethod.PaymentMethodID;
     }
 }
