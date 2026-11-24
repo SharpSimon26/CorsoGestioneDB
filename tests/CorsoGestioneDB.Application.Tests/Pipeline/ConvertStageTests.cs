@@ -17,22 +17,28 @@ public class ConvertStageTests
         int? ExpectedDiscountPct
     );
 
-    public static TheoryData<ConvertStageTestCase> ConvertStageData =
+    public static IEnumerable<TheoryDataRow<ConvertStageTestCase>> ConvertStageData =
     [
         new (
-            new StagingOrder { OrderID = "ORD00001", OrderDate = "09/08/2026 14:30:00", Email = "pippo@pluto.com", Quantity = "5", 
-                UnitPrice = "113.75", DiscountPct = "0" },
-            "ORD00001", new DateTime(2026, 8, 9, 14, 30, 0, DateTimeKind.Unspecified), "pippo@pluto.com", 5, 113.75m, 0
+            new ConvertStageTestCase(
+                new StagingOrder { OrderID = "ORD00001", OrderDate = "09/08/2026 14:30:00", Email = "pippo@pluto.com", Quantity = "5", 
+                    UnitPrice = "113.75", DiscountPct = "0" },
+                "ORD00001", new DateTime(2026, 8, 9, 14, 30, 0, DateTimeKind.Unspecified), "pippo@pluto.com", 5, 113.75m, 0
+            )
         ),
         new (
-            new StagingOrder { OrderID = "ORD00002", OrderDate = "", Email = "topolino@minnie.net", Quantity = "2", 
-                UnitPrice = "11.43", DiscountPct = "dieci" },
-            "ORD00002", null, "topolino@minnie.net", 2, 11.43m, null
+            new ConvertStageTestCase(
+                new StagingOrder { OrderID = "ORD00002", OrderDate = "", Email = "topolino@minnie.net", Quantity = "2", 
+                    UnitPrice = "11.43", DiscountPct = "dieci" },
+                "ORD00002", null, "topolino@minnie.net", 2, 11.43m, null
+            )
         ),
         new (
-            new StagingOrder { OrderID = "ORD013699", OrderDate = "2025-01-05 21:03:23", Email = "simone.rinaldi193@outlook.it", Quantity = "1", 
-                UnitPrice = "453.35", DiscountPct = "-5" },
-            "ORD013699", new DateTime(2025, 1, 5, 21, 03, 23, DateTimeKind.Unspecified), "simone.rinaldi193@outlook.it", 1, 453.35m, -5
+            new ConvertStageTestCase(
+                new StagingOrder { OrderID = "ORD013699", OrderDate = "2025-01-05 21:03:23", Email = "simone.rinaldi193@outlook.it", Quantity = "1", 
+                    UnitPrice = "453.35", DiscountPct = "-5" },
+                "ORD013699", new DateTime(2025, 1, 5, 21, 03, 23, DateTimeKind.Unspecified), "simone.rinaldi193@outlook.it", 1, 453.35m, -5
+            )
         )
     ];
 

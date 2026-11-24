@@ -15,15 +15,19 @@ public class NormalizeStageTests
         string ExpectedEmail
     );
 
-    public static TheoryData<NormalizeStageTestCase> NormalizeStageData =
+    public static IEnumerable<TheoryDataRow<NormalizeStageTestCase>> NormalizeStageData =
     [
-        new (
-            "  ORD00001 ", "   PIPPO@pluto.COM " , 
-            "ORD00001", "pippo@pluto.com"
+        new(
+            new NormalizeStageTestCase(
+                "  ORD00001 ", "   PIPPO@pluto.COM " , 
+                "ORD00001", "pippo@pluto.com"
+            )
         ),
-        new (
-            "ORD00002    ", "  TOPOLINO@minnie.net " , 
-            "ORD00002", "topolino@minnie.net"
+        new(
+            new NormalizeStageTestCase(
+                "ORD00002    ", "  TOPOLINO@minnie.net " , 
+                "ORD00002", "topolino@minnie.net"
+            )
         )
     ];
 

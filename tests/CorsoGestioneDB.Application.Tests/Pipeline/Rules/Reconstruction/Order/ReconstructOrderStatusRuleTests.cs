@@ -15,31 +15,42 @@ public class ReconstructOrderStatusRuleTests
         string? ExpectedOrderStatus
     );
 
-    public static TheoryData<ReconstructOrderStatusRuleTestCase> ReconstructOrderStatusData =
+    public static IEnumerable<TheoryDataRow<ReconstructOrderStatusRuleTestCase>> ReconstructOrderStatusData =
     [
         new(
-            "ORD000358", new DateTime(2024, 12, 07, 03, 43, 44, DateTimeKind.Unspecified),
-            "Unknown", new DateTime(2024, 12, 11, 0, 0, 0, DateTimeKind.Unspecified),
-            true, "Consegnato"
+            new ReconstructOrderStatusRuleTestCase(
+                "ORD000358", new DateTime(2024, 12, 07, 03, 43, 44, DateTimeKind.Unspecified),
+                "Unknown", new DateTime(2024, 12, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                true, "Consegnato"
+            )
         ),
         new(
-            "ORD000420", new DateTime(2025, 06, 17, 10, 53, 15, DateTimeKind.Unspecified),
-            null, new DateTime(2025, 06, 24, 0, 0, 0, DateTimeKind.Unspecified),
-            true, "Consegnato"
+            new ReconstructOrderStatusRuleTestCase(
+                "ORD000420", new DateTime(2025, 06, 17, 10, 53, 15, DateTimeKind.Unspecified),
+                null, new DateTime(2025, 06, 24, 0, 0, 0, DateTimeKind.Unspecified),
+                true, "Consegnato"
+            )
         ),
         new(
-            "ORD001256", new DateTime(2024, 05, 01, 23, 35, 18, DateTimeKind.Unspecified),
-            null, null,
-            true, "Unknown"
+            new ReconstructOrderStatusRuleTestCase(
+                "ORD001256", new DateTime(2024, 05, 01, 23, 35, 18, DateTimeKind.Unspecified),
+                null, null,
+                true, "Unknown"
+            )
         ),
         new(
-            "ORD000100", new DateTime(2025, 12, 18, 20, 02, 13, DateTimeKind.Unspecified),
-            "Spedito",	new DateTime(2025, 12, 27, 0, 0, 0, DateTimeKind.Unspecified),
-            true, "Consegnato"
+            new ReconstructOrderStatusRuleTestCase(
+                "ORD000100", new DateTime(2025, 12, 18, 20, 02, 13, DateTimeKind.Unspecified),
+                "Spedito",	new DateTime(2025, 12, 27, 0, 0, 0, DateTimeKind.Unspecified),
+                true, "Consegnato"
+            )
         ),
-        new("ORD006025", new DateTime(2024, 07, 07, 14, 20, 11, DateTimeKind.Unspecified),
-            "In lavorazione", new DateTime(2023, 01, 01, 0, 0, 0, DateTimeKind.Unspecified),
-            true, "Consegnato"
+        new(
+            new ReconstructOrderStatusRuleTestCase(
+                "ORD006025", new DateTime(2024, 07, 07, 14, 20, 11, DateTimeKind.Unspecified),
+                "In lavorazione", new DateTime(2023, 01, 01, 0, 0, 0, DateTimeKind.Unspecified),
+                true, "Consegnato"
+            )
         )
     ];
 

@@ -16,11 +16,18 @@ public class ReconstructRoundingAdjustmentRuleTests
         decimal? ExpectedAdjustment,
         bool IsRejected);
 
-    public static TheoryData<ReconstructRoundingAdjustmentRuleTestCase> ReconstructRoundingAdjustmentRuleData =
+    public static IEnumerable<TheoryDataRow<ReconstructRoundingAdjustmentRuleTestCase>> ReconstructRoundingAdjustmentRuleData =
     [
         // OrderID        Qty  UnitPrice  DiscPct  ShipCost  Revenue    ExpAdjustment  IsRejected
-        new("ORD000784",  1,   1234.50m,  20,      4.90m,    153.44m,   839.06m,       true),
-        new("ORD000098",  3,   125.78m,   25,      0m,       283.00m,   0.01m,         false)
+        new(
+            new ReconstructRoundingAdjustmentRuleTestCase(
+                "ORD000784",  1,   1234.50m,  20,      4.90m,    153.44m,   839.06m,       true)
+            ),
+        new(
+            new ReconstructRoundingAdjustmentRuleTestCase(
+                "ORD000098",  3,   125.78m,   25,      0m,       283.00m,   0.01m,         false
+            )
+        )
     ];
 
     [Theory]

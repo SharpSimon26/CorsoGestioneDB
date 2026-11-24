@@ -14,11 +14,13 @@ public class ReconstructOrderDateRuleTests
         DateTime ExpectedOrderDate
     );
 
-    public static TheoryData<ReconstructOrderDateTestCase> ReconstructOrderDateData =
+    public static IEnumerable<TheoryDataRow<ReconstructOrderDateTestCase>> ReconstructOrderDateData =
     [
         new(
-            "ORD001146", null, new DateTime(2024, 11, 10, 0, 0, 0, DateTimeKind.Unspecified), 
-            true, new DateTime(2024, 11, 06, 0, 0, 0, DateTimeKind.Unspecified)
+            new ReconstructOrderDateTestCase(
+                "ORD001146", null, new DateTime(2024, 11, 10, 0, 0, 0, DateTimeKind.Unspecified), 
+                true, new DateTime(2024, 11, 06, 0, 0, 0, DateTimeKind.Unspecified)
+            )
         )
     ];
 

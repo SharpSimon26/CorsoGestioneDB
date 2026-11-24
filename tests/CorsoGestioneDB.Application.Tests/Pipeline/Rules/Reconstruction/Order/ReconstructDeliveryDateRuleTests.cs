@@ -14,21 +14,25 @@ public class ReconstructDeliveryDateRuleTests
         DateTime ExpectedDeliveryDate
     );
 
-    public static TheoryData<ReconstructDeliveryDateTestCase> ReconstructDeliveryDateData =
+    public static IEnumerable<TheoryDataRow<ReconstructDeliveryDateTestCase>> ReconstructDeliveryDateData =
     [
         new(
-            "ORD000128", 
-            new DateTime(2025, 06, 26, 20, 10, 32, DateTimeKind.Unspecified), 
-            new DateTime(2023, 01, 01, 0, 0, 0, DateTimeKind.Unspecified),
-            true,
-            new DateTime(2025, 06, 30, 20, 10, 32, DateTimeKind.Unspecified)
+            new ReconstructDeliveryDateTestCase(
+                "ORD000128", 
+                new DateTime(2025, 06, 26, 20, 10, 32, DateTimeKind.Unspecified), 
+                new DateTime(2023, 01, 01, 0, 0, 0, DateTimeKind.Unspecified),
+                true,
+                new DateTime(2025, 06, 30, 20, 10, 32, DateTimeKind.Unspecified)
+            )
         ),
         new(
-            "ORD000165",
-            new DateTime(2025, 09, 10, 23, 12, 33, DateTimeKind.Unspecified),
-            new DateTime(2023, 01, 01, 0, 0, 0, DateTimeKind.Unspecified),
-            true,
-            new DateTime(2025, 09, 14, 23, 12, 33, DateTimeKind.Unspecified)
+            new ReconstructDeliveryDateTestCase(
+                "ORD000165",
+                new DateTime(2025, 09, 10, 23, 12, 33, DateTimeKind.Unspecified),
+                new DateTime(2023, 01, 01, 0, 0, 0, DateTimeKind.Unspecified),
+                true,
+                new DateTime(2025, 09, 14, 23, 12, 33, DateTimeKind.Unspecified)
+            )
         )
     ];
 
