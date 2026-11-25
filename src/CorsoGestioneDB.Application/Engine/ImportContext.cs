@@ -73,9 +73,9 @@ public class ImportContext
         ));
     }
 
-    public void AddIssue(string field, string message)
+    public void AddIssue(string field, string message, IssueSeverity severity = IssueSeverity.Error)
     {
-        Issues.Add(new ImportIssue(field, message));
+        Issues.Add(new ImportIssue(field, message, severity));
     }
 
     public bool IsProcessable()
