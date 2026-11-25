@@ -2,6 +2,7 @@
 using CorsoGestioneDB.Application.Pipeline;
 using CorsoGestioneDB.Application.Pipeline.Rules.Reconstruction;
 using CorsoGestioneDB.Application.Pipeline.Rules.Resolution;
+using CorsoGestioneDB.Application.Pipeline.Rules.Validation;
 using CorsoGestioneDB.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -37,6 +38,9 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IResolutionRule, ResolveLocationRule>();
         services.AddScoped<IResolutionRule, ResolveSalesChannelRule>();
         services.AddScoped<IResolutionRule, ResolvePaymentMethodRule>();
+
+        // Regole di validazione pre-importazione
+        services.AddScoped<IValidationRule, ValidateForeignKeysRule>();
 
         // Stadi della pipeline
         services.AddScoped<NormalizeStage>();
