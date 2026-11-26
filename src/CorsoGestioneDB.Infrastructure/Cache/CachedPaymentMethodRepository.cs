@@ -30,7 +30,7 @@ public class CachedPaymentMethodRepository : ICachedPaymentMethodRepository
         return paymentMethod;
     }
 
-    public async Task<PaymentMethod?> GetBestMatchByNameAsync(string paymentMethodName, int minimumSimilarity = 80, int minimumGap = 10)
+    public async Task<PaymentMethod?> GetBestMatchByNameAsync(string paymentMethodName, int minimumSimilarity = 75, int minimumGap = 10)
     {
         await EnsureCacheLoadedAsync();
         _cache.TryGetValue(paymentMethodName, out var paymentMethod);
