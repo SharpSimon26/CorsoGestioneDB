@@ -14,6 +14,11 @@ public class ValidateForeignKeysRule : IValidationRule
         // Order
         var order = context.Data.Order;
 
+        if (order.OrderID == null)
+        {
+            context.AddIssue(nameof(order.OrderID), $"{nameof(order.OrderID)} non risolto");
+        }
+
         if (order.PaymentMethodID == null)
         {
             context.AddIssue(nameof(order.PaymentMethodID), $"{nameof(order.PaymentMethodID)} non risolto");

@@ -40,6 +40,8 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IResolutionRule, ResolvePaymentMethodRule>();
 
         // Regole di validazione pre-importazione
+        services.AddScoped<IValidationRule, ValidateOrderRule>();
+        services.AddScoped<IValidationRule, ValidateOrderLineRule>();
         services.AddScoped<IValidationRule, ValidateForeignKeysRule>();
 
         // Stadi della pipeline

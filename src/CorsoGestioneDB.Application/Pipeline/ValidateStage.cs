@@ -27,7 +27,5 @@ public class ValidateStage : StageBase
                 }
             }
         }
-
-        throw new NotImplementedException();
     }
 }
