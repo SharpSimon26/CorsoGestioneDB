@@ -14,9 +14,19 @@ public class ValidateForeignKeysRule : IValidationRule
         // Order
         var order = context.Data.Order;
 
+        if (order.PaymentMethodID == null)
+        {
+            context.AddIssue(nameof(order.PaymentMethodID), $"{nameof(order.PaymentMethodID)} non risolto");
+        }
+
+        if (order.SalesChannelID == null)
+        {
+            context.AddIssue(nameof(order.SalesChannelID), $"{nameof(order.SalesChannelID)} non risolto");
+        }
+
         if (order.OrderStatusID == null)
         {
-            context.AddIssue(nameof(order.OrderStatusID), "OrderStatusID non risolto");
+            context.AddIssue(nameof(order.OrderStatusID), $"{nameof(order.OrderStatusID)} non risolto");
         }
 
         // Customer
@@ -24,7 +34,25 @@ public class ValidateForeignKeysRule : IValidationRule
 
         if (customer.CustomerID == null)
         {
-            context.AddIssue(nameof(customer.CustomerID), "CustomerID non risolto");
+            context.AddIssue(nameof(customer.CustomerID), $"{nameof(customer.CustomerID)} non risolto");
+        }
+
+        if (customer.CityID == null)
+        {
+            context.AddIssue(nameof(customer.CityID), $"{nameof(customer.CityID)} non risolto");
+        }
+
+        // Product
+        var product = context.Data.Product;
+
+        if (product.ProductCode == null)
+        {
+            context.AddIssue(nameof(product.ProductCode), $"{nameof(product.ProductCode)} non risolto");
+        }
+
+        if (product.CategoryID == null)
+        {
+            context.AddIssue(nameof(product.CategoryID), $"{nameof(product.CategoryID)} non risolto");
         }
     }
 }
